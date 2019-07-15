@@ -20,7 +20,7 @@
 3. **Deployed PyDaisy in a Singularity Container.**: Successfully run the `sbatch` command with the PyDaisy Singularity container and necessary script files for frame identification on CWRU HPC clusters.
 
 #### Week 5 (6/24/19 - 6/28/19) and Week 6 (7/1/19 - 7/5/19):
-1. *OpenSesame*: I have completed and deployed the pipeline with OpenSesame in a Singularity Container. I have successfully test run the container on CWRU, and it can identify the frames and arguments of NewsScape dataset.
+1. **OpenSesame**: I have completed and deployed the pipeline with OpenSesame in a Singularity Container. I have successfully test run the container on CWRU, and it can identify the frames and arguments of NewsScape dataset.
 2. **Frame Embeddings**: I have read through 10 papers to understand the recent practices with creating frame embeddings and summarized their methodologies in a report. One of the most popular is BoW approach. I believe BERT and ELMo generation of frame embeddings will be better because these two models use attention models to create sentence embeddings, which better capture the semantic concepts of a sentence. </br>
 There are some interesting observations:
     1. Only recent SEMEVAL papers on framenet verb and roles clustering tasks use BERT and ELMo to generate the context vectors that represent the sentence. Previous papers rely on Word2Vec and TF-IDF algorithms. Surprisingly, RNN, transformer, and attention models are not brought up in those older papers.
