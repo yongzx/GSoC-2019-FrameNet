@@ -8,7 +8,8 @@ This project sets out to achieve two goals. The first objective is to update the
 - [X] Annotate the NewsScape dataset with FrameNet 1.7 using OpenSesame parser
 - [ ] Annotate the NewsScape dataset with Semafor compatible with FrameNet 1.7
   - This has not worked out well because the link to the pretrained model on Semafor page was removed and I have attempted the retraining process but to no avail. By today (7/14/19), I have reached out to the person-of-contact for Semafor-FN 1.7 and I have CC-ed Prof. Torrent along the email.
-- [X] Deploy the OpenSesame and PyDaisy pipelines on CWRU HPC
+- [X] Deploy the OpenSesame pipeline on CWRU HPC
+- [X] (New) Deploy the PyDaisy (with n-gram model and dependency tree model) pipeline on CWRU HPC.
 
 *Week 5 - 8*
 - [ ] Create the representation of FrameNet 1.7 with BabelNet's synsets
