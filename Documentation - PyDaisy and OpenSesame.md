@@ -1,4 +1,4 @@
-### Usage of py_daisy and Open-Sesame
+# Usage of py_daisy and Open-Sesame
 This documentation outlines the steps and the details of each step in annotating NewsScape data with PyDaisy and Open-Sesame. A short analysis and evaluation of the two libraries will be included at the end of each section.
 
 
