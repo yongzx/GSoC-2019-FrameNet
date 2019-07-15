@@ -3,9 +3,9 @@ This documentation outlines the steps and the details of each step in annotating
 
 
 
-#### Prior to Annotation
+## Prior to Annotation
 
-##### Copying the NewsScape data library
+#### Copying the NewsScape data library
 
 Before annotating the NewsScape data library with the two annotating libraries, I used the Python script `get_newsscape.py` to copy the files. These duplicate files are annotated to avoid irreversible changes to the original file during the development stage.
 
@@ -17,7 +17,7 @@ python3 get_newsscape.py --year 2019 --month 01 --day 01 --folder_path ./newssca
 
 
 
-##### Preprocessing the data
+#### Preprocessing the data
 
 The NewsScape data that is copied and will be processed are in `.seg` file format, which is the Red Hen Data Format. It is chosen because the file includes the metadata and the closed captions (which will be annotated).
 
@@ -48,7 +48,7 @@ pyfn/scripts/preprocess.sh -x 001 -t nlp4j -d bmst -p semafor
 
 <div style="page-break-after: always;"></div>
 
-#### PyDaisy (Compatible with Berkeley FrameNet 1.7)
+## PyDaisy (Compatible with Berkeley FrameNet 1.7)
 
 PyDaisy is the implementation of Disambiguation Algorithm for Inferring the Semantics of Y (Daisy) using Python for FrameNetBrasil. It can be accessed through the private GitHub repository - https://github.com/FrameNetBrasil/py_daisy (if granted access).
 
@@ -56,7 +56,7 @@ This section is structured into two subsections. The first section explains how 
 
 
 
-##### Instructions: Running the Singularity Container for PyDaisy FrameNet Annotation
+#### Instructions: Running the Singularity Container for PyDaisy FrameNet Annotation
 
 The folder `/home/zxy485/zxy485gallinahome/week1-4/final-pydaisy` contains every script needed for annotation with PyDaisy. In particular, the singularity container `production.sif` contains the Python libraries such as NLTK necessary for running the annotating script `frm_02.py`. 
 
@@ -109,7 +109,7 @@ singularity exec production.sif python3 -u /mnt/annotate_dataset.py --path_to_fo
 
 
 
-##### My Modification of PyDaisy and Short Evaluation
+#### My Modification of PyDaisy and Short Evaluation
 
 The frame identification mechanism of PyDaisy is by first obtaining all the potential frames (including super-frames and sub-frames) represented by all frame-target words in the sentence, and subsequently finding the best cluster/combinations of frames. The ranking of clusters are based on the weighted relations between frames.
 
@@ -127,13 +127,13 @@ It should also be noted that FrameNet annotation involves frame and semantic rol
 
 <div style="page-break-after: always;"></div>
 
-#### Open-Sesame
+## Open-Sesame
 
 Open-sesame is a parser that detects FrameNet frames and their frame-elements (arguments) from sentences using Segmental RNNs. This section is divided into two subsections. The first part elaborates on how to annotate the NewsScape dataset with OpenSesame, and the second part discusses the development of the annotating script `generate_RHL_format.py` and the challenges associated with the deployment. 
 
 
 
-##### Instructions: Running the Singularity Container for OpenSesame FrameNet Annotation
+#### Instructions: Running the Singularity Container for OpenSesame FrameNet Annotation
 
 The folder `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame` contains every script needed for annotation with OpenSesame. In particular, the singularity container `production.sif` contains the Python libraries such as NLTK necessary for running the annotating script `generate_RHL_format.py`.
 
@@ -184,7 +184,7 @@ singularity exec production.sif python3 -u /mnt/annotate_dataset.py --path_to_fo
 
 
 
-##### Development of `generate_RHL_format.py`
+#### Development of `generate_RHL_format.py`
 
 The `generate_RHL_format.py` is extended from the [three commands](https://github.com/swabhs/open-sesame#prediction-on-unannotated-data) that can generate predictions of frames and frame elements on unannotated sentences. 
 
@@ -200,7 +200,7 @@ Note that `generate_RHL_format.py` does not process file by file; instead, it pr
 
 
 
-##### Challenges with Deploying Open-Sesame on HPC Cluster
+#### Challenges with Deploying Open-Sesame on HPC Cluster
 
 The main challenge comes with my unfamiliarity with modifying the environment and file relations when running the Singularity container. More specifically, the OpenSesame annotation step, which is based on the [three commands](https://github.com/swabhs/open-sesame#prediction-on-unannotated-data) that generate predictions of frames and frame elements, runs library module as script. 
 
@@ -284,6 +284,6 @@ It is important to note this changes down because OpenSESAME may be updated and 
 
 <div style="page-break-after: always;"></div>
 
-#### Future Direction
+## Future Direction
 
 After checking in with Prof. Tiago, who is my mentor, it seems that the argument identification of OpenSESAME is not precise (a lot of false positives). Therefore, in this week 6 (and possibly 7), I am looking into SEMAFOR and using its argument identification part to complement OpenSESAME's weakness. 
