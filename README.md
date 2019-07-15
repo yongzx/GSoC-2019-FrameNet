@@ -5,21 +5,22 @@ This project sets out to achieve two goals. The first objective is to update the
 
 ### Goals
 *Week 1 - 4*
-- [ ] Annotate the NewsScape dataset with FrameNet 1.7 using OpenSesame parser
+- [X] Annotate the NewsScape dataset with FrameNet 1.7 using OpenSesame parser
 - [ ] Annotate the NewsScape dataset with Semafor compatible with FrameNet 1.7
-- [ ] Deploy the two end-to-end frame-semantic parsing pipelines on CWRU HPC
+  - This has not worked out well because the link to the pretrained model on Semafor page was removed and I have attempted the retraining process but to no avail. By today (7/14/19), I have reached out to the person-of-contact for Semafor-FN 1.7 and I have CC-ed Prof. Torrent along the email.
+- [X] Deploy the OpenSesame and PyDaisy pipelines on CWRU HPC
 
 *Week 5 - 8*
 - [ ] Create the representation of FrameNet 1.7 with BabelNet's synsets
 - [ ] Induce frames for unrecognized lexical units, LUs, from NewsScape dataset
-- [ ] Create filters that remove the incorrectly induced frames
+- [X] Create filters that remove the incorrectly induced frames
 - [ ] Deploy the pipeline that induces and filters frame for unrecognized LUs on CWRU HPC
 - [ ] (Optional) Suggest new frames that better capture the senses of the unrecognized lexical units
 
 *Week 9 - 12*
-- [ ] Train DSSM using March 2019 dump of English Wikipedia
-- [ ] Create word semantic embeddings of LUs and distributional profile (frame clusters) of
-FrameNet using DSSM
+- [X] Create word semantic embeddings of LUs and distributional profile (frame clusters) of
+FrameNet using ELMO and BERT.
+  - The decision to change from DSSM to ELMO and BERT comes after reading the related papers on frame embeddings, where I learned that ELMO and BERT are primarily used for SemVal-2019 tasks of inducing frames. The summary of each paper is in this report.
 - [ ] Deploy the pipeline that identifies inconsistent antonyms in FrameNet structure on
 CWRU HPC
 - [ ] Create word semantic embeddings and semantic clusters of words in WordNet
