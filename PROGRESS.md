@@ -1,0 +1,40 @@
+# Progress Update
+
+#### Week 1 (5/27/19 - 5/31/19)
+1. **Familiarize with the NewsScape dataset + (Stretch) Implementing the pre-processing pipeline**:I have familiarized myself with the dataset. I am moving on to the first part of the pre-processing pipeline: concatenating the text.
+2. **Train Semafor, SIMPLEFRAMEID and OpenSesame with FrameNet 1.7 annotation sets**:I run into two problems with using the library `pyfn` as proposed in my proposal. First, some Python files for preprocessing and training the SEMAFOR and OpenSesame are written in Python 2 and some are in Python 3. I am looking into the Singularity Hub to find containers that contain both Python 2 and 3 but couldn’t find any for now. In fact, I can only find the container with Python 3. There are two solutions. One is to train locally (without using the Singularity container). The second is to modify a container with Python 3 to include Python 2. I am seeking out instructions to do so and I am getting in contact with HPC support team. Second issue is the lack of clear documentation about training SIMPLEFRAMEID. In fact, I run into a bug of lacking embedding file for training SIMPLEFRAMEID, and I open an issue on GitHub (https://github.com/akb89/pyfn/issues/13)
+
+#### Week 2 (6/3/19 - 6/7/19):
+1. **(Continuing from Week 1) Train Semafor, SIMPLEFRAMEID and OpenSesame with FrameNet 1.7 annotation sets**: There are still some bugs with the library but I have completed Week 1 tasks with training of SIMPLEFRAMEID, SEMAFOR, and OpenSesame.
+2. **Implement the pre-processing pipeline that tags POS and parse dependencies**: I have implemented the NLP4J and BPMS parser for POS-tagging and dependency parsing.
+3. **Annotate NewsScape dataset with the trained Semafor and OpenSesame parsers**: I have some setbacks because I discover that the library is a closed system which only works on the gold-annotated training and testing files in FrameNet. Unlike what I formerly written in the proposal, it is not directly transferable to Red Hen NewsScape dataset. I am still working on this task by reading the codes and have been experimenting with different ways of replacing the input dataset with NewsScape dataset.
+
+#### Week 3 (6/10/19 - 6/14/19):
+1. **Written a report on my failure with integrating the `pyfn` library.**
+2. **Video called with Prof. Torrent to understand the other tools for annotaing the dataset.**
+3. **Tested out *PyDaisy* that is used for frame identification with FN-Br database and Google's `SLING` library for frame identification.**
+
+#### Week 4 (6/17/19 - 6/21/19):
+1. **Augmented PyDaisy to work with Berkeley FN1.7 database.**: Apply a model of n-gram window for PyDaisy to identify frames for a long sentence. Import Berkeley FN1.7 from `nltk` for PyDaisy to work with Berkeley FN1.7 library.
+2. **Annotate the frames in NewsScape dataset and generate output in Red Hen Data Format.**: PyDaisy takes in the data file with closed captions and outputs the `.seg` (Red Hen data format) with a tag of `FRM_02`.
+3. **Deployed PyDaisy in a Singularity Container.**: Successfully run the `sbatch` command with the PyDaisy Singularity container and necessary script files for frame identification on CWRU HPC clusters.
+
+#### Week 5 (6/24/19 - 6/28/19) and Week 6 (7/1/19 - 7/5/19):
+1. *OpenSesame*: I have completed and deployed the pipeline with OpenSesame in a Singularity Container. I have successfully test run the container on CWRU, and it can identify the frames and arguments of NewsScape dataset.
+2. **Frame Embeddings**: I have read through 10 papers to understand the recent practices with creating frame embeddings and summarized their methodologies in a report. One of the most popular is BoW approach. I believe BERT and ELMo generation of frame embeddings will be better because these two models use attention models to create sentence embeddings, which better capture the semantic concepts of a sentence. </br>
+There are some interesting observations:
+    1. Only recent SEMEVAL papers on framenet verb and roles clustering tasks use BERT and ELMo to generate the context vectors that represent the sentence. Previous papers rely on Word2Vec and TF-IDF algorithms. Surprisingly, RNN, transformer, and attention models are not brought up in those older papers.
+    2. It seems that there’s no consensus about how to best represent the semantic meaning yet. In fact, there’s no agreement on which types of embeddings are best for clustering. There’s no concrete discussion on the reasons why certain embeddings and clustering algorithms work.
+    3. I didn't encounter any paper that touches upon expanding the number of frames in FrameNet.
+    4. Only one paper that I come across uses data augmentation to increase the number of annotated sentences used to create embeddings. This is a big contrast to the computer vision field as data augmentation is commonly used to reduce the overfitting of the data. I believe this is important for Framenet as the available sentences for generating embeddings and training models are limited.
+3. **SEMAFOR**: Since the `pyfn` library that makes argument-identification with SEMAFOR is not working, I have to read through the Java codes of SEMAFOR I ran into two problems. First, https://github.com/AlenUbuntu/semafor_Framenet_v1.7, which is the updated SEMAFOR suggested on RedHenLab is incomplete. One of the links that contains the pretrained SEMAFOR model is not working (https://utdallas.box.com/s/mgwbpje4stqyyzbl1eocg307pk0pqbc3). Second, I have been following the guide to retrain the model on my laptop for the past few days, and the training keeps running into the error. I realize that my data structure preparation step might not be working, which results in the serialization error.. Moreover, there’s no way for me to raise issues on the github page (because it is a fork version). My next step is to email the people in charge to directly ask for the models.
+4. **BabelNet - Frame-to-Frame relations checking**: Successfully create a function for verify frame-to-frame relations of the suggested frame for unseen lexical units.
+5. **BabelNet - Valence Pattern checking**: Successfully ran Valence API for verifying the valence patterns (frame elements) of a frame on my computer. The API retrieves the CoreSet of FEs for a given frame. Will work on containerizing it into Singularity because it requires a server and MongoDB database for retrieving the CoreSet of Frame Elements.
+
+#### Week 7 (7/8/19 - 7/12/19):
+1. Follow up on **SEMAFOR**. I have sent the email to the person-in-contact listed on the GitHub repo for requesting the pre-trained SEMAFOR model and the MaltParser. 
+2. **Adapt Dependency trees to PyDaisy**: I have created the dependency tree using UDPipe API call. It is a modification of the n-gram by taking the root node and a fixed number of child nodes to parse in `parseInput`. It is deployed on Singularity container and I have test-run it on Red Hen Lab CWRU clusters.
+3. **Extract unrecognized lemma in NewsScape sentences and turn it into lexical unit**: I found a library called `flair` whose POS-tagging works for all capitalized sentence.
+4. **Generate the embeddings with different models**: I have successfully generated BERT embeddings for the lexical units using their exemplar sentences using the `flair` library. I am still generating their ELMO embeddings. 
+5. **Create a function for matching the POS of unseen lexical units with the POS of the lexical units in the potential frame**
+6. **Continue on adapting BabelNet and WordNet to this renewed approach.**: WordNet - Still proceed with what my proposal has suggested but instead of using DSSM model, use BERT and ELMO which factor in the context of the sentence. They are the SoTA word embeddings model right now (excluding the most recent xlNet). First, I will continue tackling the antonyms problem with the generated embeddings. At the same time,  I will focus on adding new lexical units to the current labels OR new labels. BabelNet - Unaffected.
