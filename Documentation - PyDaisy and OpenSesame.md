@@ -62,7 +62,7 @@ The folder `/home/zxy485/zxy485gallinahome/week1-4/final-pydaisy` contains every
 
 The workflow is as shown by the following figure.
 
- ![image-20190703172954937](https://github.com/yongzx/GSoC-2019-FrameNet/blob/9c6f19dd77df5793dbc6c85fedabc95b626b4afa/images/Documentation%201%20-%20OpenSesame%20Workflow.png)
+ ![image-20190703172954937](https://github.com/yongzx/GSoC-2019-FrameNet/blob/b50295ea4efeeec2b8d50e44a5fb653dc069e641/images/Documentation%201%20-%20PyDaisy%20Workflow.png)
 
 
 
