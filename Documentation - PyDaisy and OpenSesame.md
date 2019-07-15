@@ -62,7 +62,7 @@ The folder `/home/zxy485/zxy485gallinahome/week1-4/final-pydaisy` contains every
 
 The workflow is as shown by the following figure.
 
- ![image-20190703172954937](/Users/zhengxinyong/Desktop/GSoC'19/May 27 - Aug 19/Images/Documentation 1 - PyDaisy Workflow.png)
+ ![image-20190703172954937](https://github.com/yongzx/GSoC-2019-FrameNet/blob/9c6f19dd77df5793dbc6c85fedabc95b626b4afa/images/Documentation%201%20-%20OpenSesame%20Workflow.png)
 
 
 
@@ -137,7 +137,7 @@ Open-sesame is a parser that detects FrameNet frames and their frame-elements (a
 
 The folder `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame` contains every script needed for annotation with OpenSesame. In particular, the singularity container `production.sif` contains the Python libraries such as NLTK necessary for running the annotating script `generate_RHL_format.py`.
 
-![image-20190704012415651](/Users/zhengxinyong/Desktop/GSoC'19/May 27 - Aug 19/Images/Documentation 1 - OpenSesame Workflow.png)
+![image-20190704012415651](https://github.com/yongzx/GSoC-2019-FrameNet/blob/9c6f19dd77df5793dbc6c85fedabc95b626b4afa/images/Documentation%201%20-%20OpenSesame%20Workflow.png)
 
 The respective commands for annotating a single NewsScape file is as followed:
 
