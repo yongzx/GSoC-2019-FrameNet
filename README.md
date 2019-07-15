@@ -20,7 +20,7 @@ This project sets out to achieve two goals. The first objective is to update the
 *Week 9 - 12*
 - [X] Create word semantic embeddings of LUs and distributional profile (frame clusters) of
 FrameNet using ELMO and BERT.
-  - The decision to change from DSSM to ELMO and BERT comes after reading the related papers on frame embeddings, where I learned that ELMO and BERT are primarily used for SemVal-2019 tasks of inducing frames. The summary of each paper is in this report.
+  - The decision to change from DSSM to ELMO and BERT comes after reading the related papers on frame embeddings, where I learned that ELMO and BERT are primarily used for SemVal-2019 tasks of inducing frames. The summary of each paper is in this [report](https://github.com/yongzx/GSoC-2019-FrameNet/blob/35793a73fda4ad456beab9bf467d8156fcf46e81/Background%20Research%20-%20Frame%20Embeddings.pdf).
 - [ ] Deploy the pipeline that identifies inconsistent antonyms in FrameNet structure on
 CWRU HPC
 - [ ] Create word semantic embeddings and semantic clusters of words in WordNet
