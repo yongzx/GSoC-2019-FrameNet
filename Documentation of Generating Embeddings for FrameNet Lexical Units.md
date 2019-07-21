@@ -33,6 +33,11 @@ The BERT embedding of a lexical unit is obtained by averaging the BERT embedding
 The function below illustrates how the BERT embeddings of lexical units are generated. 
 
 ```python
+import torch
+import pickle
+from flair.data import Sentence
+from flair.embeddings import BertEmbeddings
+from nltk.corpus import framenet as fn
 def create_fn_LU_embeddings(embedding, save_file):
     """
     :param embedding: flair.embeddings (e.g. BertEmbeddings()) 
