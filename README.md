@@ -12,7 +12,7 @@ This project sets out to achieve two goals. The first objective is to update the
 - [X] (New) Deploy the PyDaisy (with n-gram model and dependency tree model) pipeline on CWRU HPC.
 
 *Week 5 - 8*
-- [ ] Create the representation of FrameNet 1.7 with BabelNet's synsets
+- [X] Create the representation of FrameNet 1.7 with BabelNet's synsets
 - [ ] Induce frames for unrecognized lexical units, LUs, from NewsScape dataset
 - [X] Create filters that remove the incorrectly induced frames
 - [ ] Deploy the pipeline that induces and filters frame for unrecognized LUs on CWRU HPC
@@ -22,9 +22,9 @@ This project sets out to achieve two goals. The first objective is to update the
 - [X] Create word semantic embeddings of LUs and distributional profile (frame clusters) of
 FrameNet using ELMO and BERT.
   - The decision to change from DSSM to ELMO and BERT comes after reading the related papers on frame embeddings, where I learned that ELMO and BERT are primarily used for SemVal-2019 tasks of inducing frames. The summary of each paper is in this [report](https://github.com/yongzx/GSoC-2019-FrameNet/blob/35793a73fda4ad456beab9bf467d8156fcf46e81/Background%20Research%20-%20Frame%20Embeddings.pdf).
-- [ ] Deploy the pipeline that identifies inconsistent antonyms in FrameNet structure on
-CWRU HPC
-- [ ] Create word semantic embeddings and semantic clusters of words in WordNet
+- [X] Deploy the pipeline that identifies inconsistent antonyms in FrameNet structure on
+CWRU HPC (The accuracy is still very low)
+- [X] Create word semantic embeddings and semantic clusters of words in WordNet
 - [ ] Deploy the pipeline that creates and compares frame clusters of FrameNet and semantic
 clusters of WordNet to identify new LUs, missing frames and new frames on CWRU HPC
 - [ ] (Optional) Create word semantic embeddings and semantic clusters of entity/event trigger words in
