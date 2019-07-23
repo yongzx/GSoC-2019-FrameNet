@@ -38,3 +38,23 @@ There are some interesting observations:
 4. **Generate the embeddings with different models**: I have successfully generated BERT embeddings for the lexical units using their exemplar sentences using the `flair` library. I am still generating their ELMO embeddings. 
 5. **Create a function for matching the POS of unseen lexical units with the POS of the lexical units in the potential frame**
 6. **Continue on adapting BabelNet and WordNet to this renewed approach.**: WordNet - Still proceed with what my proposal has suggested but instead of using DSSM model, use BERT and ELMO which factor in the context of the sentence. They are the SoTA word embeddings model right now (excluding the most recent xlNet). First, I will continue tackling the antonyms problem with the generated embeddings. At the same time,  I will focus on adding new lexical units to the current labels OR new labels. BabelNet - Unaffected.
+
+#### Week 8 (7/15/19 - 7/19/19):
+1. **Antonyms Detection**:
+- I have generated BERT embeddings for all the synsets that come with examples in WordNet.
+- I have trained the Decision Tree Classifier from sklearn with WordNet antonyms and non-antonyms pairs. There are 3322 antonyms pairs in total and 3322 self-generated non-antonym pairs. The antonyms and non-antonyms are split by a ratio of 0.33 into training and testing dataset. The accuracy in identifying the antonyms and non-antonyms in WordNet is 0.7423.
+- I used the trained model to identify the potential antonyms in FrameNet. I pickled the list and uploaded it here. The model is very inaccurate in identifying the antonyms in FrameNet.
+
+2. **Argument Labeling for Unseen Lexical Units**:
+- As demonstrated a few days ago, I tried using Open-Sesame label the arguments of the sentence using the predicted frame of the unseen lexical units.
+- I have read through @Tiago Torrent’s comment and I am thinking of a way out since the annotation comparison doesn’t work as intended.
+
+3. **BabelNet**:
+- The plan is to represent FrameNet frames with BabelNet synsets.
+a) The lemma under FN frames (along with its POS) will be used to call BabelNet API to retrieve all the synsets.
+b) Then, only retain synsets that generalize two or more lexical units under the particular frame.
+c) Finally, call BabelNet API to retrieve all the lemmas and example sentences in the BabelNet synset to generate the BERT embeddings.
+- I have successfully created all the necessary functions for the three steps. However, I encounter such error `Your key is not valid or the daily requests limit has been reached`. There’s daily requests limit of 1000 per day for the BabelNet API and I reached the limit.
+- I have sent the request form for increasing the API calls limit on the official BabelNet website. The screenshot of the request form is attached below.
+
+4. **SEMAFOR**: Sent a follow-up email to request for the pre-trained FN1.7 SEMAFOR model.
