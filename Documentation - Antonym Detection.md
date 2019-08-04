@@ -76,6 +76,10 @@ For each frame in FrameNet, all of its lexical units with the same POS tag are g
 
 The returned result of the function below is a list of tuples of antonymous pairs in the format of (L1, L2, id(L1), id(L2)) where L1 and L2 are antonymous lexical units and id() is a function that maps the lexical unit to its respective ID in FrameNet.
 
+```
+..., ('unscrew.v', 'tie.v', 4557, 4757), ('seal.v', 'fasten.v', 4625, 4677), ('seal.v', 'tie.v', 4625, 4757), ('fasten.v', 'unfasten.v', 4677, 4711), ('fasten.v', 'tie.v', 4677, 4757), ('unfasten.v', 'tie.v', 4711, 4757)]
+```
+
 ---
 
 ## Overall Implementation Details (`Deployed_Antonym_{1/2/3/4/5}.py`)
