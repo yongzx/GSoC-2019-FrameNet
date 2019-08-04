@@ -1,4 +1,4 @@
-# Documentation - Multilingual FN
+# Summary - Multilingual FN (As of August, 2019)
 
 - French FrameNet - http://asfalda.linguist.univ-paris-diderot.fr/frameIndex.xml
   - Web interface / online visualization is available 
