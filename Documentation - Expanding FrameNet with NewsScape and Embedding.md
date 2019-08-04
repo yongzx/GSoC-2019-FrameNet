@@ -312,7 +312,7 @@ def check_core_FE(unseen_LUs_sentence_filename,
 
 ---
 
-#### Documentation of Bugs / Challenges Encountered in Assigning New Lexical Units to Corresponding Frames
+## Documentation of Bugs / Challenges Encountered in Assigning New Lexical Units to Corresponding Frames
 
 **POS-tagging for the unseen lexical units** - All the characters in NewsScape closed captions text are capitalized. This creates challenge for POS-tagging. I attempted UDPipe, NLTK and NLP4J; all of them gave subpar results such as classifying all capitalized nouns as NNP. `flair` library worked best in POS-tagging the sentence despite all characters are capitalized.
 
