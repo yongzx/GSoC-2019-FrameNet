@@ -1,0 +1,23 @@
+# Documentation - Multilingual FN
+
+- French FrameNet - http://asfalda.linguist.univ-paris-diderot.fr/frameIndex.xml
+  - Web interface / online visualization is available 
+  - API and dataset not publicly available (need to contact)
+- Chinese FrameNet - http://nlg.csie.ntu.edu.tw/nlpresource/FrameNet/CFN-Lex/
+  - Dataset available but only includes the frame name and the corresponding lexical units
+- FrameNet Brasil - https://github.com/FrameNetBrasil/py_daisy
+  - Github library is available but modification of codes are needed to returning the list of annotation sentences
+- German FrameNet(s) - Salsa Project
+  - Web interface / online visualization is not readily available (Requires login)
+  - API and dataset not publicly available (need to contact)
+- Spanish FrameNet - http://spanishfn.org/data
+  - Web interface / online visualization is available 
+  - API and dataset not publicly available (need to contact)
+- Japanese FrameNet - http://sato.fm.senshu-u.ac.jp/frameSQL/jfn23/notes/index.html
+  - Web interface / online visualization is available 
+  - API and dataset not publicly available (need to contact)
+- Swedish FrameNet - https://spraakbanken.gu.se/eng/swefn
+  - Web interface / online visualization is not available 
+  - Dataset is readily available.
+- Korean FrameNet - https://github.com/machinereading/koreanframenet
+  - Github library is available
