@@ -31,7 +31,7 @@ The final outputs are:
 
 - Filtered new lexical units:  `{folder}/matched_coreFEs_lus-{seg_file}.p`
 - New lexical units that do not pass the POS filter: `{folder}/unmatched_pos_lus-{seg_file}.p`
-- New lexical units that do not pass the Core Res filter: `{folder}/unmatched_coreFEs_lus-{seg_file}.p`
+- New lexical units that do not pass the Core FEs filter: `{folder}/unmatched_coreFEs_lus-{seg_file}.p`
 
 ---
 
