@@ -2,7 +2,7 @@
 
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs`. 
 
-The `sbatch` script used to identify new lexical units from NewsScape dataset is as followed:
+The `sbatch` script used to identify new lexical units from NewsScape dataset and create BERT embeddings for them is as followed:
 
 ```bash
 #!/bin/bash
@@ -18,12 +18,14 @@ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 module load singularity
 export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs:/mnt"
 
-singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data' --seg_file='2019-01-01_2300_US_WEWS_News_5_at_6pm.seg' > './data/output.out'
+# singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data' --seg_file='2019-01-01_2300_US_WEWS_News_5_at_6pm.seg' > './data/output.out'
+
+singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data/0102'
 ```
 
 The argument `--folder` specifies the folder of the NewsScape seg file to be processed and where all the output files will be stored. Remember that it must use SINGULARITY_BINDPATH.
 
-The argument `--seg_file` specifies the file name of the NewsScape seg file to be processed .
+The argument `--seg_file` specifies the file name of the NewsScape seg file to be processed. This is optional – if the argument is not specified, the script will identify all new lexical units and generate BERT embeddings for all the NewsScape seg files in the folder specified in `--folder` argument.
 
 The final outputs are:
 
@@ -309,6 +311,40 @@ def check_core_FE(unseen_LUs_sentence_filename,
 ```
 
 
+
+---
+
+## Documentation of Creating Singularity Containers
+
+I create the Singularity container `production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
+
+**Dependencies Installation in Singularity Container**
+
+```bash
+pip3 --no-cache-dir install nltk
+pip3 --no-cache-dir install torch
+pip3 --no-cache-dir install flair
+
+apt-get update
+sudo apt upgrade
+sudo apt install python2.7 python-pip
+pip --no-cache-dir install dynet
+pip --no-cache-dir install nltk
+```
+
+If the **Out of Memory (OOM)** error is encountered during the pip installation, allocate 2GB to the Vagrant Box virtual environment by including the following script into Vagrantfile.
+
+```bash
+Vagrant.configure("2") do |config|
+	# ...
+	
+  config.vm.provider "virtualbox" do |v|
+  	v.memory = 2048
+  end
+  
+  # ...
+end
+```
 
 ---
 
