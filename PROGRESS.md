@@ -58,3 +58,39 @@ c) Finally, call BabelNet API to retrieve all the lemmas and example sentences i
 - I have sent the request form for increasing the API calls limit on the official BabelNet website. The screenshot of the request form is attached below.
 
 4. **SEMAFOR**: Sent a follow-up email to request for the pre-trained FN1.7 SEMAFOR model.
+
+#### Week 9 (7/22/19 - 7/26/19):
+1. **Antonym Detection**: I have created the containers to be tested on CWRU HPC. I have trained the models with dependency parsing using UDPipe and I am running it on FrameNet 1.7. I will put the result up and the documentation of running the containers once the model successfully parses LUs in FrameNet 1.7.
+
+2. **BabelNet**: I have submitted the application and I haven’t received the dataset yet even though I received an email from the person-in-contact from BabelNet (I believe I have CC-ed Prof. Tiago in my reply to the email).
+
+3. **Expanding FrameNet with Embeddings**: I have created the pipeline filter container for identifying lexical units from NewsScape that do not meet POS (using flair) and valence patterns of the LUs in the frame (using Valencer API). I will test the Singularity container on CWRU and upload the documentation here.
+
+#### Week 10 (7/29/19 - 8/2/19):
+1. **Documentation on Antonym Detection** (Successfully Deployed with Singularity on CWRU HPC): https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Antonym%20Detection.md
+
+2. **Documentation on Expanding FrameNet with NewsScape and BERT** (Successfully Deployed with Singularity on CWRU HPC): https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Expanding%20FrameNet%20with%20NewsScape%20and%20Embedding.md
+
+3. **Summary of Research Papers on Antonym Detection Models**: https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Background%20Research%20-%20Antonym%20Detection.pdf
+
+4. **Multi-lingual Embeddings** - Compare all convenience of accessing the lexical units and their annotations (https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Summary%20-%20Multilingual%20FN.md) and working on generating the embeddings for Sweden-FN and Korean-FN.
+Note:
+
+5. I ran into deployment issues for most of the time during the week so I didn’t have enough time catering for the task of “Research papers on antonym detection models and implement multi-lingual embeddings for LUs.” The challenges and the bugs I met are documented in the documentation.
+
+#### Week 11 (8/5/19 - 8/9/19):
+1. **Clustering of Lexical Units that are Filtered out by POS and Core FEs**: I have applied Affinity Propagation clustering technique on the LU embeddings. Result photo can be seen here.
+
+2. **Assign frames to clusters using multilingual FrameNet**: I have applied translation and KoreanFN to assign frames to the clusters.
+
+#### Week 12 (8/12/16 - 8/16/19):
+1. **Assign frames to clusters using multilingual FrameNet**: I have implemented BrazilFN to assign frames. However, I ran into the problem of Google Translation API Requests Limits, which means it is impossible to batch translate the lexical units and assigned frames with BrazilFN and KoreanFN.
+
+2. I have **looked through 150 frames within FrameNet** and reading up on the FrameNet structure in “FrameNet II: Extended Theory and Practice”. I classify them into (1) frames where antonyms are grouped together, (2) antonymous frames due to the reversive pairs, (3) Relational opposites such as seller and buyer, (4), Erroneous Frames (Frames containing lexical units that are in relational opposites. Such erroneous frames are Guest_and_host where guest.n and host.n should be in separate frames according to “FrameNet II: Extended Theory and Practice”)
+
+Therefore, it doesn’t seem worthwhile resolving inconsistency because it seems that FrameNet’s frames are supposed to contain antonyms such as dry and wet in the same frame, where the lexical units differ in their semantic types (positive or negative). There are, however, few frames which are inconsistent with the notion of relational opposites should be in separate frames.
+
+#### Week 13 (8/19/16 - 8/23/19):
+1. Deploy Singularity Containers for Clustering of Lexical Units and Multilingual frame assignment.
+2. Ensure that previous singularity containers work properly (double-checking).
+3. Finish up the blog posts about the third term week 9 - 12.
