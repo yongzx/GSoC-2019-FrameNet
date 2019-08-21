@@ -358,3 +358,31 @@ def detect_antonyms_framenet_cosine_similarity_dep(lus_embed_file, model):
     pickle.dump(antonyms, open("/mnt/potential_antonyms_cosine_sim_with_dep_1.p", 'wb'))
     return antonyms
 ```
+
+---
+## Documentation of Creating Singularity Containers
+
+I create the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
+
+**Dependencies Installation in Singularity Container**
+
+```bash
+pip3 --no-cache-dir install flair
+pip3 --no-cache-dir install nltk
+```
+
+If the **Out of Memory (OOM)** error is encountered during the pip installation, allocate 2GB to the Vagrant Box virtual environment by including the following script into Vagrantfile.
+
+```bash
+Vagrant.configure("2") do |config|
+	# ...
+	
+  config.vm.provider "virtualbox" do |v|
+  	v.memory = 2048
+  end
+  
+  # ...
+end
+```
+
+
