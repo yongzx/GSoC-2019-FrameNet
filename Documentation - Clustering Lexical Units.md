@@ -117,3 +117,22 @@ A potential reason for this inaccuracy is that the exemplar sentences are too fe
 It is important to note that for now, I could not find the best `preference` hyperparameter value because currently, I could not find any way to evaluate to performance of the clustering aside from analyzing the visual model. 
 
 
+---
+## Documentation of Singularity Containers
+I reuse the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/production.sif` that is used for the task of [Expanding FrameNet with NewsScape and Embedding](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Expanding%20FrameNet%20with%20NewsScape%20and%20Embedding.md#documentation-of-creating-singularity-containers)
+
+The libraries/dependencies imported in the file `cluster_LUs_AP.py` are
+```python
+import pickle
+import time
+import itertools
+import os
+import collections
+from contextlib import contextmanager
+import numpy as np
+import torch
+from sklearn.cluster import AffinityPropagation
+from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+```
