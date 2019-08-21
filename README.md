@@ -24,7 +24,7 @@ FrameNet using ELMO and BERT.
   - The decision to change from DSSM to ELMO and BERT comes after reading the related papers on frame embeddings, where I learned that ELMO and BERT are primarily used for SemVal-2019 tasks of inducing frames. The summary of each paper is in this [report](https://github.com/yongzx/GSoC-2019-FrameNet/blob/35793a73fda4ad456beab9bf467d8156fcf46e81/Background%20Research%20-%20Frame%20Embeddings.pdf).
 - [X] Create word semantic embeddings and semantic clusters of words in WordNet
 - [X] Deploy the pipeline that uses BERT embeddings and WordNet sysnsets to identify inconsistent antonyms in FrameNet structure on CWRU HPC.
-- [X] Create a pipeline that clusters and visualizes new lexical units that do not pass through the POS and coreFEs filters.
+- [X] Create a pipeline that clusters (with Affinity Propagation) and visualizes (with t-SNE) new lexical units that do not pass through the POS and coreFEs filters.
 - [X] Deploy a pipeline that assign frames from multilingual framenets such as KoreanFN and BrazilFN to the clustered lexical units.
 
 ### Libraries / Tools / APIs
