@@ -6,31 +6,26 @@ This project sets out to achieve two goals. The first objective is to update the
 ### Goals
 *Week 1 - 4*
 - [X] Annotate the NewsScape dataset with FrameNet 1.7 using OpenSesame parser
-- [ ] Annotate the NewsScape dataset with Semafor compatible with FrameNet 1.7
+- ~~Annotate the NewsScape dataset with Semafor compatible with FrameNet 1.7~~
   - This has not worked out well because the link to the pretrained model on Semafor page was removed and I have attempted the retraining process but to no avail. By today (7/14/19), I have reached out to the person-of-contact for Semafor-FN 1.7 and I have CC-ed Prof. Torrent along the email.
 - [X] Deploy the OpenSesame pipeline on CWRU HPC
 - [X] (New) Deploy the PyDaisy (with n-gram model and dependency tree model) pipeline on CWRU HPC.
 
 *Week 5 - 8*
 - [X] Create the representation of FrameNet 1.7 with BabelNet's synsets
-- [ ] Induce frames for unrecognized lexical units, LUs, from NewsScape dataset
-- [X] Create filters that remove the incorrectly induced frames
-- [ ] Deploy the pipeline that induces and filters frame for unrecognized LUs on CWRU HPC
-- [ ] (Optional) Suggest new frames that better capture the senses of the unrecognized lexical units
+- [X] Induce frames for unrecognized lexical units, LUs, from NewsScape dataset using BERT embeddings and cosine similarity
+- [X] Create filters that remove the incorrectly induced frames based on POS and core FEs.
+- [X] Deploy the pipeline that induces and filters frame for unrecognized LUs on CWRU HPC
+- [X] (Optional) Suggest new frames that better capture the senses of the unrecognized lexical units using multilingual framenets such as KoreanFN and BrazilFN
 
 *Week 9 - 12*
 - [X] Create word semantic embeddings of LUs and distributional profile (frame clusters) of
 FrameNet using ELMO and BERT.
   - The decision to change from DSSM to ELMO and BERT comes after reading the related papers on frame embeddings, where I learned that ELMO and BERT are primarily used for SemVal-2019 tasks of inducing frames. The summary of each paper is in this [report](https://github.com/yongzx/GSoC-2019-FrameNet/blob/35793a73fda4ad456beab9bf467d8156fcf46e81/Background%20Research%20-%20Frame%20Embeddings.pdf).
-- [X] Deploy the pipeline that identifies inconsistent antonyms in FrameNet structure on
-CWRU HPC (The accuracy is still very low)
+- [X] Deploy the pipeline that uses BERT embeddings and WordNet sysnsets to identify inconsistent antonyms in FrameNet structure on CWRU HPC.
 - [X] Create word semantic embeddings and semantic clusters of words in WordNet
-- [ ] Deploy the pipeline that creates and compares frame clusters of FrameNet and semantic
-clusters of WordNet to identify new LUs, missing frames and new frames on CWRU HPC
-- [ ] (Optional) Create word semantic embeddings and semantic clusters of entity/event trigger words in
-ACE 2005 Entities and Events datasets
-- [ ] (Optional) Deploy the pipeline that compares the frame clusters of FrameNet and ACE semantic
-clusters to expand FrameNet Entity and Events frames hierarchy on CWRU HPC
+- [X] Create a pipeline that clusters and visualizes new lexical units that do not pass through the POS and coreFEs filters.
+- [X] Deploy a pipeline that assign frames from multilingual framenets such as KoreanFN and BrazilFN to the clustered lexical units.
 
 ### Libraries / Tools / APIs
 - `pyfn`
