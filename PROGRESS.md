@@ -79,7 +79,7 @@ Note:
 5. I ran into deployment issues for most of the time during the week so I didn’t have enough time catering for the task of “Research papers on antonym detection models and implement multi-lingual embeddings for LUs.” The challenges and the bugs I met are documented in the documentation.
 
 #### Week 11 (8/5/19 - 8/9/19):
-1. **Clustering of Lexical Units that are Filtered out by POS and Core FEs**: I have applied Affinity Propagation clustering technique on the LU embeddings. Result photo can be seen here.
+1. **Clustering of Lexical Units that are Filtered out by POS and Core FEs**: I have applied Affinity Propagation clustering technique on the LU embeddings. Result photo can be seen [here](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_clustered_LUs.png).
 
 2. **Assign frames to clusters using multilingual FrameNet**: I have applied translation and KoreanFN to assign frames to the clusters.
 
