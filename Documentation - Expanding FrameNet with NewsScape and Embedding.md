@@ -316,7 +316,7 @@ def check_core_FE(unseen_LUs_sentence_filename,
 
 ## Documentation of Creating Singularity Containers
 
-I create the Singularity container `production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
+I create the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
 
 **Dependencies Installation in Singularity Container**
 
