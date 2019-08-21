@@ -1,6 +1,6 @@
 # Documentation - Clustering Lexical Units
 
-All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs`.
+All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `cluster_LUs_AP.py`.
 
 The `sbatch` script used to generate the t-SNE visualization and the clustering of the lexical units which are filtered out by the POS and CoreFEs filters:
 
@@ -10,9 +10,15 @@ The `sbatch` script used to generate the t-SNE visualization and the clustering 
 #SBATCH -c 1
 #SBATCH --mem-per-cpu=5G
 #SBATCH --time=7-00:00:00
-#SBATCH --output=my.stdout
-#SBATCH --error=my.err
-#SBATCH --job-name="expanding-fn"
+#SBATCH --output=clutser_LUs_AP_output.stdout
+#SBATCH --error=clutser_LUs_AP_output.err
+#SBATCH --job-name="clustering-unmatched-LUs"
+
+module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
+module load singularity
+export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs:/mnt"
+
+singularity exec production.sif python3 -u /mnt/cluster_LUs_AP.py --folder_unmatched_lus="/mnt/data/0102" --folder_models="/mnt/data/0102" --folder_images="/mnt/data" > './data/0102/clutser_LUs_AP_output.out'
 ```
 
 The argument `--folder_unmatched_lus` specifies the folder that currently stores the unmatched LUs pickled file whose file names starts with either "unmatched_coreFEs_lus" or "unmatched_pos_lus" (such as "unmatched_pos_lus-2019-01-02_1600_DE_DasErste_Tagesschau.seg.p"). Remember that it must use SINGULARITY_BINDPATH.
@@ -121,18 +127,4 @@ It is important to note that for now, I could not find the best `preference` hyp
 ## Documentation of Singularity Containers
 I reuse the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/production.sif` that is used for the task of [Expanding FrameNet with NewsScape and Embedding](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Expanding%20FrameNet%20with%20NewsScape%20and%20Embedding.md#documentation-of-creating-singularity-containers)
 
-The libraries/dependencies imported in the file `cluster_LUs_AP.py` are
-```python
-import pickle
-import time
-import itertools
-import os
-import collections
-from contextlib import contextmanager
-import numpy as np
-import torch
-from sklearn.cluster import AffinityPropagation
-from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-```
+The Python 3 external libraries/dependencies imported in the file `cluster_LUs_AP.py` are `sklearn`, `numpy`, `torch`, and `matplotlib`.
