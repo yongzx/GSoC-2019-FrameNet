@@ -2,7 +2,7 @@
 
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `multilingual_frame_assignment.py`.
 
-The `sbatch` script (``) used to assign frames to the lexical unit clusters:
+The `sbatch` script (`task-multilingual-frame-assignment.slurm`) used to assign frames to the lexical unit clusters:
 
 ```bash
 #!/bin/bash
@@ -10,14 +10,15 @@ The `sbatch` script (``) used to assign frames to the lexical unit clusters:
 #SBATCH -c 1
 #SBATCH --mem-per-cpu=5G
 #SBATCH --time=14-00:00:00
-#SBATCH --output=clutser_LUs_AP_output.stdout
-#SBATCH --error=clutser_LUs_AP_output.err
+#SBATCH --output=multilingual_frame_assignment.stdout
+#SBATCH --error=multilingual_frame_assignment.err
 #SBATCH --job-name="frame assignment using multilingual FN"
 
 module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 module load singularity
 export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs:/mnt"
-singularity exec production_multilingual4.sif python3 /mnt/multilingual_frame_assignment.py --file_model_result="/mnt/data/0102/lu_cluster_affinity_propagation.pkl" --folder_unseen_LUs="/mnt/data/0102" --folder_multilingual_frame_assignment="/mnt/data/0102"
+
+singularity exec production_multilingual4.sif python3 -u /mnt/multilingual_frame_assignment.py --file_model_result="/mnt/data/0102/lu_cluster_affinity_propagation.pkl" --folder_unseen_LUs="/mnt/data/0102" --folder_multilingual_frame_assignment="/mnt/data/0102" > "./data/0102/multilingual_frame_assignment_output.out"
 ```
 
 The argument `--file_model_result` specifies the folder that stores the `lu_cluster_affinity_propagation.pkl` result (from the Clustering Lexical Units Documentation).
