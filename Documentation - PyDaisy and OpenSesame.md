@@ -1,9 +1,18 @@
 # PyDaisy and Open-Sesame
 This documentation outlines the steps and the details of each step in annotating NewsScape data with PyDaisy and Open-Sesame. A short analysis and evaluation of the two libraries will be included at the end of each section.
 
-## Prior to Annotation
+**Table of Content**
+- [Tutorial](#tutorial)
+- [Implementation Details](#implementation-details)
+   - [Preprocessing the data](#preprocessing-the-data)
+   - [PyDaisy (Compatible with Berkeley FrameNet 1.7)](#pydaisy--compatible-with-berkeley-framenet-1.7)
+   - [Open-Sesame](#open-sesame)
+   - [Future Direction](#future-direction)
+---
 
-#### Copying the NewsScape data library to be Annotated
+## Tutorial
+
+#### Prior to Annotation - Copying the NewsScape data library to be Annotated
 
 Before annotating the NewsScape data library with the two annotating libraries, I used the Python script `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/get_newsscape.py` to copy the files. These duplicate files are annotated to avoid irreversible in-place changes to the original file during the development stage. The NewsScape data that is copied and will be processed are in `.seg` file format, which is the Red Hen Data Format. It is chosen because the file includes the metadata and the closed captions (which will be annotated).
 
@@ -13,7 +22,7 @@ The following code shows the command that copies the 2019/01/02 NewsScape data f
 python3 get_newsscape.py --year 2019 --month 01 --day 02 --folder_path ./newsscape
 ```
 
-## Annotation
+#### Annotation
 A slurm script (`/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/frame_annot_tutorial.slurm`) is created to annotate the 2019/01/02 NewsScape data files, which is copied into the folder `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/`.
 
 ```bash
@@ -33,7 +42,7 @@ export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week1-4/final-open-s
 singularity exec production.sif python3 -u /mnt/annotate_dataset.py --path_to_folder /mnt/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02 > ./frame-annot-tutorial-output.out
 ```
 
-**Output**
+#### Output
 
 `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/frame-annot-tutorial-output.out` shows the current progress of annotating the NewsScape dataset. The following script is a sample output that shows that the annotation of `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/2019-01-02_0330_US_KNBC_Access.seg` is underway.
 
@@ -142,13 +151,6 @@ FRM_01|2019-01-04 03:07|Source_Program=FrameNet 1.5, Semafor 3.0-alpha4, FrameNe
 
 Note: Currently, the frame identification of the OpenSesame library seems to outperform that of PyDaisy. The potential reasons could be that n-gram and dependency-tree models added to PyDaisy (see [My Modification and Analysis of PyDaisy](#my-modification-and-analysis-of-pydaisy)) to process long sentences from NewsScape jeopardize the accuracy of frame-identification. Therefore, the entire dataset is annotated with OpenSesame.
 
----
-**Table of Content**
-- [Implementation Details](#implementation-details)
-   - [Preprocessing the data](#preprocessing-the-data)
-   - [PyDaisy (Compatible with Berkeley FrameNet 1.7)](#pydaisy-(compatible-with-berkeley-framenet-1.7))
-   - [Open-Sesame](#open-sesame)
-   - [Future Direction](#future-direction)
 ---
 ## Implementation Details
 #### Preprocessing the data
