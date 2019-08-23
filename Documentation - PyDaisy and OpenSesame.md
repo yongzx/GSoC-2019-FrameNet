@@ -144,11 +144,11 @@ Note: Currently, the frame identification of the OpenSesame library seems to out
 
 ---
 **Table of Content**
-- [Implementation Details](implementation-details)
-   - [Preprocessing the data](preprocessing-the-data)
-   - [PyDaisy (Compatible with Berkeley FrameNet 1.7)](pydaisy-(compatible-with-berkeley-framenet-1.7))
-   - [Open-Sesame](open-sesame)
-   - [Future Direction](future-direction)
+- [Implementation Details](#implementation-details)
+   - [Preprocessing the data](#preprocessing-the-data)
+   - [PyDaisy (Compatible with Berkeley FrameNet 1.7)](#pydaisy-(compatible-with-berkeley-framenet-1.7))
+   - [Open-Sesame](#open-sesame)
+   - [Future Direction](#future-direction)
 ---
 ## Implementation Details
 #### Preprocessing the data
