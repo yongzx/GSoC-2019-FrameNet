@@ -5,7 +5,7 @@ This documentation outlines the steps and the details of each step in annotating
 
 #### Copying the NewsScape data library to be Annotated
 
-Before annotating the NewsScape data library with the two annotating libraries, I used the Python script `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/get_newsscape.py` to copy the files. These duplicate files are annotated to avoid irreversible in-place changes to the original file during the development stage.
+Before annotating the NewsScape data library with the two annotating libraries, I used the Python script `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/get_newsscape.py` to copy the files. These duplicate files are annotated to avoid irreversible in-place changes to the original file during the development stage. The NewsScape data that is copied and will be processed are in `.seg` file format, which is the Red Hen Data Format. It is chosen because the file includes the metadata and the closed captions (which will be annotated).
 
 The following code shows the command that copies the 2019/01/02 NewsScape data files into the folder `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/`.
 
@@ -32,6 +32,8 @@ export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week1-4/final-open-s
 
 singularity exec production.sif python3 -u /mnt/annotate_dataset.py --path_to_folder /mnt/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02 > ./frame-annot-tutorial-output.out
 ```
+
+**Output**
 
 `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/frame-annot-tutorial-output.out` shows the current progress of annotating the NewsScape dataset. The following script is a sample output that shows that the annotation of `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/2019-01-02_0330_US_KNBC_Access.seg` is underway.
 
@@ -138,13 +140,14 @@ FRM_01|2019-01-04 03:07|Source_Program=FrameNet 1.5, Semafor 3.0-alpha4, FrameNe
 ...
 ```
 
+Note: Currently, the frame identification of the OpenSesame library seems to outperform that of PyDaisy. The potential reasons could be that n-gram and dependency-tree models added to PyDaisy (see [My Modification and Analysis of PyDaisy](#my-modification-and-analysis-of-pydaisy)) to process long sentences from NewsScape jeopardize the accuracy of frame-identification. Therefore, the entire dataset is annotated with OpenSesame
 
-
-
+---
+**Table of Content**
+- 
+---
+## Implementation Details
 #### Preprocessing the data
-
-The NewsScape data that is copied and will be processed are in `.seg` file format, which is the Red Hen Data Format. It is chosen because the file includes the metadata and the closed captions (which will be annotated).
-
 Preprocessing is necessary for two reasons. First, we are only interested in annotating the closed captions in the `.seg` file so we have to extract it. Second, the closed captions are all in capital letters. Without processing, PyDaisy and OpenSesame cannot accurately annotate the sentence. 
 
 In other words, there are two preprocessing step:
@@ -152,32 +155,27 @@ In other words, there are two preprocessing step:
 1. Extract the closed captions for annotation
 2. Preprocess the closed captions text so they can be recognized and annotated by PyDaisy and OpenSesame.
 
-
-
-I created the script `convert_newscape.py` that extracts the closed captions, which is run by the following command:
+I created the script `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/convert_newscape.py` that extracts the closed captions, which is run by the following command:
 
 ```bash
 python3 convert_newscape.py --path_to_file <filename>
 ```
 
-
-
 NLP4J and BMST are used to perform lemmatization, part-of-speech tagging and dependency parsing as their combination in the pre-processing pipeline yields the best result of frame and frame element identification (Kabbach, Ribeyre & Herbelot, 2018).
 
 ```bash
-pyfn/scripts/preprocess.sh -x 001 -t nlp4j -d bmst -p semafor
+/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/pyfn/scripts/preprocess.sh -x 001 -t nlp4j -d bmst -p semafor
 ```
 
 ---
 
 <div style="page-break-after: always;"></div>
 
-## PyDaisy (Compatible with Berkeley FrameNet 1.7)
+### PyDaisy (Compatible with Berkeley FrameNet 1.7)
 
-PyDaisy is the implementation of Disambiguation Algorithm for Inferring the Semantics of Y (Daisy) using Python for FrameNetBrasil. It can be accessed through the private GitHub repository - https://github.com/FrameNetBrasil/py_daisy (if granted access).
+PyDaisy is the implementation of Disambiguation Algorithm for Inferring the Semantics of Y (Daisy) using Python for FrameNetBrasil. It can be accessed through the private GitHub repository - https://github.com/FrameNetBrasil/py_daisy.
 
 This section is structured into two subsections. The first section explains how to annotate the NewsScape dataset using the deployed Singularity container on Red Hen's HPC clusters. The second section elaborates on what I have worked on and the analysis of PyDaisy.
-
 
 
 #### Instructions: Running the Singularity Container for PyDaisy FrameNet Annotation
@@ -187,7 +185,6 @@ The folder `/home/zxy485/zxy485gallinahome/week1-4/final-pydaisy` contains every
 The workflow is as shown by the following figure.
 
  ![image-20190703172954937](https://github.com/yongzx/GSoC-2019-FrameNet/blob/b50295ea4efeeec2b8d50e44a5fb653dc069e641/images/Documentation%201%20-%20PyDaisy%20Workflow.png)
-
 
 
 The respective commands for annotating a single NewsScape file is as followed:
@@ -212,7 +209,7 @@ I wrap the commands in a Python script `annotate_dataset.py`, which can loop thr
 singularity exec production.sif python3 /mnt/annotate_dataset.py --path_to_folder /mnt/newsscape
 ```
 
-The sbatch script (`frame_annot.slurm`) used to submit the annotation job to the HPC clusters is as followed:
+The sbatch script (`/home/zxy485/zxy485gallinahome/week1-4/final-pydaisy/frame_annot.slurm`) used to submit the annotation job for the NewsScape data files in `/home/zxy485/zxy485gallinahome/week1-4/final-pydaisy/newsscape` is as followed:
 
 ```bash
 #!/bin/bash
@@ -231,9 +228,7 @@ export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week1-4/final:/mnt"
 singularity exec production.sif python3 -u /mnt/annotate_dataset.py --path_to_folder /mnt/newsscape > ./output.out
 ```
 
-
-
-#### My Modification of PyDaisy and Short Evaluation
+#### My Modification and Analysis of PyDaisy
 
 The frame identification mechanism of PyDaisy is by first obtaining all the potential frames (including super-frames and sub-frames) represented by all frame-target words in the sentence, and subsequently finding the best cluster/combinations of frames. The ranking of clusters are based on the weighted relations between frames.
 
@@ -251,10 +246,9 @@ It should also be noted that FrameNet annotation involves frame and semantic rol
 
 <div style="page-break-after: always;"></div>
 
-## Open-Sesame
+### Open-Sesame
 
 Open-sesame is a parser that detects FrameNet frames and their frame-elements (arguments) from sentences using Segmental RNNs. This section is divided into two subsections. The first part elaborates on how to annotate the NewsScape dataset with OpenSesame, and the second part discusses the development of the annotating script `generate_RHL_format.py` and the challenges associated with the deployment. 
-
 
 
 #### Instructions: Running the Singularity Container for OpenSesame FrameNet Annotation
@@ -287,7 +281,7 @@ I wrap the commands in a Python script `annotate_dataset.py`, which can loop thr
 singularity exec production.sif python3 /mnt/annotate_dataset.py --path_to_folder /mnt/newsscape
 ```
 
-The sbatch script (`frame_annot.slurm`) used to submit the annotation job to the HPC clusters is as followed:
+The sbatch script (`/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/frame_annot.slurm`) used to submit the annotation job for the NewsScape data files in `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape` is as followed:
 
 ```bash
 #!/bin/bash
@@ -321,7 +315,6 @@ Therefore, `generate_RHL_format.py` accomplished the three following tasks:
 3. Convert the CONLL file that contains the predicted frames and frame elements into Red Hen Data Format.
 
 Note that `generate_RHL_format.py` does not process file by file; instead, it processes sentence by sentence. In other words, it only copies one sentence into `sentences.txt`, and after predicting the frames and frame elements, the script adds the frames and frame elements of the sentence into the `.seg` file.
-
 
 
 #### Challenges with Deploying Open-Sesame on HPC Cluster
@@ -399,7 +392,6 @@ In addition, modifications are made to the following files to ensure that the pa
       "debug_mode": false
   }
   ```
-
 
 
 It is important to note this changes down because OpenSESAME may be updated and these changes have to be customly introduced after pulling the repository from GitHub. 
