@@ -5,7 +5,7 @@ This documentation outlines the steps and the details of each step in annotating
 - [Tutorial](#tutorial)
 - [Implementation Details](#implementation-details)
    - [Preprocessing the data](#preprocessing-the-data)
-   - [PyDaisy - Compatible with Berkeley FrameNet 1.7](#pydaisy---compatible-with-berkeley-framenet-1.7)
+   - [PyDaisy](#pydaisy)
    - [Open-Sesame](#open-sesame)
    - [Future Direction](#future-direction)
 ---
@@ -177,9 +177,9 @@ NLP4J and BMST are used to perform lemmatization, part-of-speech tagging and dep
 
 <div style="page-break-after: always;"></div>
 
-### PyDaisy - Compatible with Berkeley FrameNet 1.7
+### PyDaisy
 
-PyDaisy is the implementation of Disambiguation Algorithm for Inferring the Semantics of Y (Daisy) using Python for FrameNetBrasil. It can be accessed through the private GitHub repository - https://github.com/FrameNetBrasil/py_daisy.
+PyDaisy is the implementation of Disambiguation Algorithm for Inferring the Semantics of Y (Daisy) using Python for FrameNetBrasil. It can be accessed through the private GitHub repository - https://github.com/FrameNetBrasil/py_daisy. In this implementation, it is modified to be compatible with Berkeley FrameNet 1.7.
 
 This section is structured into two subsections. The first section explains how to annotate the NewsScape dataset using the deployed Singularity container on Red Hen's HPC clusters. The second section elaborates on what I have worked on and the analysis of PyDaisy.
 
