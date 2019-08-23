@@ -140,11 +140,15 @@ FRM_01|2019-01-04 03:07|Source_Program=FrameNet 1.5, Semafor 3.0-alpha4, FrameNe
 ...
 ```
 
-Note: Currently, the frame identification of the OpenSesame library seems to outperform that of PyDaisy. The potential reasons could be that n-gram and dependency-tree models added to PyDaisy (see [My Modification and Analysis of PyDaisy](#my-modification-and-analysis-of-pydaisy)) to process long sentences from NewsScape jeopardize the accuracy of frame-identification. Therefore, the entire dataset is annotated with OpenSesame
+Note: Currently, the frame identification of the OpenSesame library seems to outperform that of PyDaisy. The potential reasons could be that n-gram and dependency-tree models added to PyDaisy (see [My Modification and Analysis of PyDaisy](#my-modification-and-analysis-of-pydaisy)) to process long sentences from NewsScape jeopardize the accuracy of frame-identification. Therefore, the entire dataset is annotated with OpenSesame.
 
 ---
 **Table of Content**
-- 
+- [Implementation Details](implementation-details)
+   - [Preprocessing the data](preprocessing-the-data)
+   - [PyDaisy (Compatible with Berkeley FrameNet 1.7)](pydaisy-(compatible-with-berkeley-framenet-1.7))
+   - [Open-Sesame](open-sesame)
+   - [Future Direction](future-direction)
 ---
 ## Implementation Details
 #### Preprocessing the data
