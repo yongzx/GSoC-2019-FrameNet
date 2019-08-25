@@ -367,14 +367,14 @@ def detect_antonyms_framenet_cosine_similarity_dep(lus_embed_file, model):
 ---
 ## Bugs And Challenges
 
-**Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by having five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py`) for processing all the frames within FrameNet where each script handles 250 frames. 
+**Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by creating five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py`) for processing all the frames within FrameNet where each script handled at most 250 frames. 
 
-**Error** (`ModuleNotFoundError: No module named 'fused_layer_norm_cuda'`) - This error is caused by my previous local installation of `nvidia/apex` for BERT processing using the `pytorch-pretrained-bert` library. Even when `import apex` is not called in the script, if `apex` is installed and detect, the Python script will run into the `ModuleNotFoundError` because first of all, the Python script is not run on a GPU node with CUDA. Second, the deployed Singularity container built on my personal MacOS environment doesn't have the `apex` library installed with CUDA extensions.
+**Module Not Found Error** (`ModuleNotFoundError: No module named 'fused_layer_norm_cuda'`) - This error was caused by my previous local installation of `nvidia/apex` for BERT processing using the `pytorch-pretrained-bert` library in HPC clusters. Even when `import apex` was not called in the script, if `apex` was installed and detected, the Python script would run into the `ModuleNotFoundError`. The first reason was that all Python scripts were not run on a GPU node with CUDA - instead, they were run with CPU nodes of HPC clusters. Second, the deployed Singularity container that was built on my personal MacOS environment did not have the `apex` library installed with CUDA extensions due to the lack of GPUs, and it's impossible to `sudo pip3 install` the `apex` library on the HPC clusters.
 
 ---
 ## Documentation of Singularity Containers
 
-I create the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
+I created the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
 
 **Dependencies Installation in Singularity Container**
 
@@ -383,7 +383,7 @@ pip3 --no-cache-dir install flair
 pip3 --no-cache-dir install nltk
 ```
 
-If the **Out of Memory (OOM)** error is encountered during the pip installation, allocate 2GB to the Vagrant Box virtual environment by including the following script into Vagrantfile.
+If the **Out of Memory (OOM)** error is encountered during the `pip3` installation, allocate 2GB to the Vagrant Box virtual environment by including the following script into Vagrantfile.
 
 ```bash
 Vagrant.configure("2") do |config|
