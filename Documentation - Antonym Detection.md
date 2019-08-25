@@ -308,7 +308,7 @@ if __name__ == "__main__":
 
 ### 6. Applying Classifier to FrameNet
 
-Output: The pickled files (`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_{1/2/3/4/5}.p`) that contains the list of tuples of antonymous pairs in the format of (L1, L2, id(L1), id(L2)) where L1 and L2 are antonymous lexical units and id() is a function that maps the lexical unit to its respective ID in FrameNet.
+**Output**: The pickled files (`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_{1/2/3/4/5}.p`) that contains the list of tuples of antonymous pairs in the format of (L1, L2, id(L1), id(L2)) where L1 and L2 are antonymous lexical units and id() is a function that maps the lexical unit to its respective ID in FrameNet.
 
 - Only pairs of lexical units which are in the same frame and have the same POS were classified.
 - The function `get_dep_relations` returned a mapping of each token in the tokenized sentence to its level and dependency relations in the dependency-parsed tree. This used the API of the UDPipe. An example would be `{'abandon.VERB': [(0, 'root'), (2, 'conj'), (2, 'acl'), (0, 'root'), (0, 'root'), (1, 'parataxis'), (0, 'root'), (2, 'advcl'), (2, 'conj'), (1, 'conj'), (0, 'root'), (1, 'ccomp'), .. (0, 'root')], '..PUNCT': [(1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), .. ], 'plan.NOUN': [(1, 'obj'), (1, 'obj'), (2, 'obj'), (1, 'obj')],  ... }`
