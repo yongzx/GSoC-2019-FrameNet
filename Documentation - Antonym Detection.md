@@ -387,7 +387,7 @@ If the **Out of Memory (OOM)** error is encountered during the `pip3` installati
 
 ```bash
 Vagrant.configure("2") do |config|
-	# ...
+  # ...
 	
   config.vm.provider "virtualbox" do |v|
   	v.memory = 2048
