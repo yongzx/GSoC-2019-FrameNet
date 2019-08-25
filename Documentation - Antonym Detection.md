@@ -397,4 +397,94 @@ Vagrant.configure("2") do |config|
 end
 ```
 
+---
+## Future Direction
+According to "FrameNet II: Extended Theory and Practice", FrameNet is structured as such:
+1. words that are antonyms of each other are grouped. For example, high and low are both in the Position on a scale frame.
+2. relational opposites which take opposite points of view on a single event are placed into separate frames because they profile different (sets of) participants. For example, buyer.n and seller.n are in separate frames.
+3. reversive pairs are placed in different frames since the members of the pairs denote different kinds of actions.
 
+I manually looked through 150 randomly selected frames within FrameNet, and I classified them into
+1. frames where antonyms are grouped together
+2. antonymous frames due to the reversive pairs
+3. relational opposites 
+4. erroneous frames which violate the aforementioned FrameNet structure. 
+
+```
+(1) frames where antonyms are grouped together
+ Temperature : ['temperature.n', 'hot.a', 'cool.a', 'freezing.a', 'cold.a', 'lukewarm.a', 'tepid.a', 'frigid.a', 'scalding.a', 'warm.a']
+- Posture : ['bend.v', 'crouch.v', 'hunch.v', 'huddle.v', 'kneel.v', 'lean.v', 'lie.v', 'sit.v', 'slouch.v', 'sprawl.v', 'squat.v', 'stand.v', 'stoop.v', 'bent.a', 'crouched.a', 'huddled.a', 'hunched.a', 'sprawled.a', 'slouched.a', 'seated.a', 'posture.n', 'stance.n', 'position.n', 'cower.v', 'shrink.v']
+- Ordinal_numbers : ['first.a', 'second.a', 'third.a', 'fourth.a', 'fifth.a', 'thirteenth.a', 'nineteenth.a', 'last.a', 'eighth.a', 'tenth.a', 'ninth.a', 'seventeenth.a', 'sixteenth.a', 'final.a']
+- Change_of_leadership : ['coup.n', 'elect.v', 'insurrection.n', 'mutiny.n', 'mutiny.v', 'overthrow.v', 'rebellion.n', 'revolt.v', 'revolution.n', 'uprising.n', 'oust.v', 'depose.v', 'dethrone.v', 'overthrow.n', 'revolt.n', 'take over.v', 'topple.v', 'election.n', 'throne.v', 'enthrone.v', 'coronate.v', 'crown.v', 'vest.v', 'install.v', 'revolutionary.n', 'independence.n', 'rising.n', 'freedom.n', 'ouster.n']
+- Gradable_proximity : ['near.a', 'close.a', 'proximity.n', 'far.a', 'distant.a']
+- Attention : ['alert.a', 'attend.v', 'attention.n', 'attentive.a', 'closely.adv', 'close.a', 'keep an eye.v', 'ignore.v']
+- Direction : ['east.adv', 'up.adv', 'forward.adv', 'left.adv', 'right.adv', 'north.adv', 'south.n', 'east.n', 'south.adv', 'down.adv', 'outward.adv', 'north.n', 'west.adv', 'true north.n', 'way.n']
+- Judgment : ['admiration.n', 'admire.v', 'admiring.a', 'applaud.v', 'appreciate.v', 'appreciation.n', 'approbation.n', 'approving.a', 'blame.n', 'blame.v', 'contempt.n', 'contemptuous.a', 'critical.a', 'damnation.n', 'deplore.v', 'derisive.a', 'disapproval.n', 'disapprove.v', 'disapproving.a', 'disdain.n', 'disdain.v', 'disdainful.a', 'disrespect.n', 'esteem.n', 'esteem.v', 'fault.n', 'fault.v', 'mock.v', 'reproachful.a', 'scorn.n', 'scorn.v', 'scornful.a', 'stigma.n', 'stigmatize.v', 'stricture.n', 'uncritical.a', 'exalt.v', 'prize.v', 'boo.v', 'revere.v', 'reverence.n', 'mockery.n', 'exaltation.n', 'accolade.n', 'vilification.n', 'value.v', 'respect.n', 'respect.v', 'deify.v', 'reproach.n', 'reprehensible.a', 'appreciative.a', 'set store.v', 'accuse.v', 'approve.v']
+- Extreme_value : ['high.n', 'low.n', 'acme.n', 'maximum.n', 'maximum.a', 'minimum.n', 'minimum.a']
+- Having_or_lacking_access : ['access.n', 'blocked.a', 'accessible.a', 'inaccessible.a', 'access.v']
+- Artificiality : ['artificial.a', 'bogus.a', 'fake.a', 'counterfeit.a', 'false.a', 'genuine.a', 'ersatz.a', 'phoney.n', 'pseudo.a', 'phoney.a', 'real.a', 'actual.a', 'true.a', 'disingenuous.a']
+- Change_of_phase : ['freeze.v', 'liquefy.v', 'vaporize.v', 'evaporate.v', 'solidify.v', 'thaw.v', 'sublime.v', 'condense.v', 'melt.v', 'defrost.v', 'condensation.n', 'evaporation.n', 'solidification.n', 'sublimation.n', 'unfreeze.v']
+- Inclusion : ['include.v', 'contain.v', 'have.v', 'integrated.a', 'exclude.v', 'excluding.prep', 'inclusive.a', 'including.prep', 'incorporate.v']
+- Chemical-sense_description : ['tasty.a', 'piquant.a', 'yummy.a', 'flavourful.a', 'scrumptious.a', 'palatable.a', 'delectable.a', 'flavoursome.a', 'toothsome.a', 'ambrosial.a', 'sapid.a', 'salty.a', 'sour.a', 'bitter.a', 'spicy.a', 'sweet.a', 'hot.a', 'savory.a', 'delicious.a', 'pungent.a', 'tart.a', 'flavourless.a', 'bland.a', 'insipid.a', 'unpalatable.a', 'stench.n', 'odor.n', 'reek.n', 'reek.v', 'stink.n', 'stink.v', 'aroma.n', 'fragrance.n', 'scent.n', 'bouquet.n', 'smelly.a', 'aromatic.a', 'fragrant.a', 'tasteless.a', 'malodorous.a', 'smell.v']
+- Capability : ['able.a', 'unable.a', 'can.v', 'capable.a', 'ability.n', 'potential.n', 'capability.n', 'capacity.n', 'potential.a', 'power.n', 'power [statistical].n', 'powerless.a', 'powerlessness.n', 'inability.n', 'incapable.a', 'incapacity.n', 'powerful.a']
+- Awareness : ['aware.a', 'awareness.n', 'believe.v', 'comprehend.v', 'comprehension.n', 'conceive.v', 'conception.n', 'conscious.a', 'hunch.n', 'imagine.v', 'know.v', 'knowledge.n', 'knowledgeable.a', 'presume.v', 'presumption.n', 'reckon.v', 'supposition.n', 'suspect.v', 'suspicion.n', 'think.v', 'thought.n', 'understand.v', 'understanding.n', 'ignorance.n', 'consciousness.n', 'cognizant.a', 'unknown.a', 'idea.n']
+- Hit_or_miss : ['hit.v', 'miss.v', 'wide.adv', 'hit.n', 'bullseye.n', 'hole in one.n']
+- Sufficiency : ['enough.n', 'enough.adv', 'enough.a', 'suffice.v', 'sufficient.a', 'sufficiently.adv', 'insufficient.a', 'insufficiently.adv', 'adequate.a', 'adequately.adv', 'insufficiency.n', 'adequacy.n', 'inadequacy.n', 'inadequate.a', 'inadequately.adv', 'plenty.n', 'plenty.adv', 'plenty.a', 'ample.a', 'too.adv', 'so.adv', 'serve.v']
+- Age : ['old.a', 'ancient.a', 'young.a', 'youngish.a', 'oldish.a', 'age.n', 'new.a', 'fresh.a', 'of.prep', 'maturity.n', 'mature.a', 'elderly.a']
+- Reasoning : ['argue.v', 'prove.v', 'reason.v', 'demonstrate.v', 'show.v', 'disprove.v', 'argument.n', 'polemic.n', 'case.n', 'demonstration.n', 'reasoning.n']
+- Being_in_effect : ['effective.a', 'effect.n', 'force.n', 'valid.a', 'void.a', 'null.a', 'binding.a']
+- Taking_sides : ['oppose.v', 'for.prep', 'against.prep', 'pro.adv', 'support.v', 'side.v', 'side.n', 'opposition [act].n', 'in favor.prep', 'supportive.a', 'opponent.n', 'supporter.n', 'opposition [entity].n', 'endorse.v', 'back.v', 'backing.n', 'believe (in).v', 'part.n']
+- Interrupt_process : ['uninterrupted.a', 'interrupt.v', 'interruption.n']
+- Being_at_risk : ['secure.a', 'security.n', 'safe.a', 'insecure.a', 'unsafe.a', 'safety.n', 'risk.n', 'vulnerable.a', 'vulnerability.n', 'danger.n', 'threatened.a', 'susceptibility.n', 'susceptible.a']
+- Preference : ['prefer.v', 'disprefer.v', 'favor.v']
+- Medical_conditions : ['acromegaly.n', 'amnesia.n', 'arthritis.n', 'anorexia.n', 'asphyxia.n', 'asthma.n', 'bronchitis.n', 'cancer.n', 'candida.n', 'cataract.n', 'cholangitis.n', 'cholecystitis.n', 'cholera.n', 'cirrhosis.n', 'cold.n', 'colitis.n', 'conjunctivitis.n', 'cryptosporidiosis.n', 'diarrhea.n', 'depression.n', 'dermatitis.n', 'diabetes.n', 'diphtheria.n', 'diverticulosis.n', 'dysmenorrhoea.n', 'eczema.n', 'flu.n', 'influenza.n', 'hepatitis.n', 'hernia.n', 'hypertension.n', 'hypoglycaemia.n', 'illness.n', 'disease.n', 'sickness.n', 'infection.n', 'jaundice.n', 'leprosy.n', 'leukemia.n', 'malaria.n', 'measles.n', 'meningitis.n', 'menorrhagia.n', 'polio.n', 'psoriasis.n', 'pyelonephritis.n', 'rosacea.n', 'schizophrenia.n', 'sciatica.n', 'shock.n', 'stress.n', 'strongylosis.n', 'syphilis.n', 'tetanus.n', 'tuberculosis.n', 'tumor.n', 'ulcer.n', 'rubella.n', 'mumps.n', 'bacterial meningitis.n', 'German measles.n', 'ailment.n', 'wound.n', 'affliction.n', 'condition.n', 'syndrome.n', 'stenosis.n', 'sick.a', 'ill.a', 'unwell.a', 'health.n', 'plague.n', 'malnourishment.n', 'malnutrition.n', 'paraplegic.a', 'healthy.a', 'AIDS.n', "Alzheimer's.n", 'disorder.n', 'develop.v']
+- Willingness : ['willing.a', 'unwilling.a', 'reluctant.a', 'willingness.n', 'loath.a', 'grudging.a', 'unwillingness.n', 'prepared.a', 'down.a']
+- Aesthetics : ['beautiful.a', 'lovely.a', 'smart.a', 'ugly.a', 'tasty.a', 'elegant.a', 'fair.a', 'handsome.a', 'hideous.a']
+- Being_relevant : ['relevant.a', 'irrelevant.a', 'pertinent.a', 'play (into).v']
+- Usefulness : ['good.a', 'effective.a', 'excellent.a', 'outstanding.a', 'superb.a', 'wonderful.a', 'fantastic.a', 'fine.a', 'tremendous.a', 'terrific.a', 'marvellous.a', 'great.a', 'super.a', 'splendid.a', 'useful.a', 'utility.n', 'value.n', 'valuable.a', 'perfect.a', 'ideal.a', 'ineffective.a', 'work.v', 'strong.a']
+- Openness : ['open.a', 'closed.a', 'dark.a']
+- Luck : ['lucky.a', 'luck.n', 'happy.a', 'fortunate.a', 'luckily.adv', 'fortunately.adv', 'fortune.n', 'fortuitous.a', 'poor.a']
+
+(2) Reversive Pairs (Actions are different and/or CoreFEs are different)
+
+- Becoming_attached - Becoming_detached
+- Cause_to_amalgamate - Cause_to_fragment
+- Non-commutative_process - Commutative_process
+- Being_detached - Being_attached
+- Ceasing_to_be - Becoming_visible
+- Sleep - Being_awake
+- Process_completed_state - Process_uncompleted_state 
+- Process_end - Process_start
+- Activity_ongoing - Activity_pause
+- Thriving - Death
+- Erasing - Protecting
+- Cause_to_move_in_place - Halt
+- Subversion - Support
+- Firing - Employing
+- Process_continue - Process_pause
+- Activity_start - Activity_finish
+- Cause_to_make_noise - Silencing
+- Avoiding - Confronting_problem
+- Cause_to_be_dry - Cause_to_be_wet 
+- Catching_fire - Fire_going_out
+- Being_attached - Being_detached
+- Beyond_compare - Being_up_to_it
+- Being_dry - Being_wet
+- Waking_up - Sleep
+
+(3) Relational Opposites
+
+- Commerce_buy - Commerce_sell
+- Dominate_situation - Giving_in
+
+(4) Erroneous Frames
+
+- Guest_and_host : ['guest.n', 'host.n']
+- Import_export_scenario : ['transship.v', 'exporter.n', 'importer.n', 'trans-shipping.n']
+- Visitor_and_host : []
+- Personal_relationship : ['husband.n', 'wife.n', 'widow.n', 'widower.n', 'widowed.a', 'spouse.n', 'couple.n', 'companion.n', 'divorcee.n', 'married.a', 'betrothed.n', 'bachelor.n', 'engaged.a', 'engagement.n', 'marriage.n', 'boyfriend.n', 'girlfriend.n', 'single.a', 'date.v', 'break-up.n', 'lover.n', 'partner.n', 'mistress.n', 'suitor.n', 'court.v', 'spinster.n', 'estranged.a', 'friend.n', 'betrothed.a', 'cohabit.v', 'cohabitation.n', 'seeing.v', 'widow.v', 'divorced.a', 'buddy.n', 'moll.n', 'paramour.n', 'inamorata.n', 'beau.n', 'sugar daddy.n', 'significant other.n', 'chum.n', 'pal.n', 'cobber.n', 'mate.n', 'crush.n', 'affair.n', 'adultery.n', 'amigo.n', 'sleep (together/with).v', 'spousal.a', 'marital.a', 'affianced.a', 'friendship.n', 'romance.n', 'befriend.v', 'familiar.a', 'fiancée.n', 'fiancé.n', 'relationship.n', 'chummy.a']
+- Medical_interaction_scenario : ['patient.n', 'doctor.n', 'nurse.n', 'surgeon.n', 'medical care.n']
+- Employing : [commission.v, employ.v, employee.n, employer.n, employment.n, personnel.n, staff.n, worker.n]
+```
+
+It doesn’t seem worthwhile resolving inconsistency because it appears that FrameNet’s frames are supposed to contain antonyms such as dry and wet in the same frame, where the lexical units differ in their semantic types (positive or negative). There are, however, few frames which are inconsistent with the notion of relational opposites should be in separate frames.
