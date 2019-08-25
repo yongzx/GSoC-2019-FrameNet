@@ -1,4 +1,4 @@
-# Documentation of Generating Embeddings for WordNet Synsets
+# Generating Embeddings for WordNet Synsets
 
 **Prerequisites**: I generated the BERT embeddings for lexical units using the natural language processing `flair` library. (See my [GitHub Documentation](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Generating%20Embeddings%20for%20FrameNet%20Lexical%20Units.md))
 
