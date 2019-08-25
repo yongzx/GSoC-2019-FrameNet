@@ -41,7 +41,16 @@ singularity exec production.sif python3 -u /mnt/deployed_antonym_1.py > ./output
 
 **Output**
 
-`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out` shows the progress of identifying antonymous lexical units within the first 250 frames. 
+`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out` shows the progress of identifying antonymous lexical units within the first 250 frames. The following example shows the first five lines of the output.
+
+```
+[Identifying antonyms in FrameNet] starts.
+Abandonment
+('abandon.v', 'leave.v', 14839, 14841)
+('abandon.v', 'forget.v', 14839, 15317)
+('leave.v', 'forget.v', 14841, 15317)
+...
+```
 
 `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p` is a pickled file of a list of pairs of antonymous lexical units within the same frame. They are in the format of `(lexical unit 1, lexical unit 2, id of lexical unit 1, id of lexical unit 2)`. The following is the sample result.
 
@@ -83,7 +92,7 @@ After factoring POS into account, there were 2320 antonyms pairs in total and 23
 
 **5B - Dependency-Parsing**
 
-After inclduing the syntactic relations, which are the type of dependency relations and the level of the node in the parse tree, to the input, the accuracy increased to 0.88. 
+After including the syntactic relations, which are the type of dependency relations and the level of the node in the parse tree, to the input, the accuracy increased to 0.88. 
 
 ### 6. Applying Classifier to FrameNet
 
