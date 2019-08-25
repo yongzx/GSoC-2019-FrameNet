@@ -78,6 +78,7 @@ def generate_embeddings_synsets(save_embedding_file, embedding=BertEmbeddings())
 ```
 
 **Output**
+
 The pickled file `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/synsets_wn_bert.p` stores the dictionary of WordNet synsets mapped to their BERT embeddings.
 
 ```
