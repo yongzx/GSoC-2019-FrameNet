@@ -365,7 +365,7 @@ def detect_antonyms_framenet_cosine_similarity_dep(lus_embed_file, model):
 ```
 
 ---
-## Challenges During Deployment and Solutions
+## Bugs And Challenges
 
 **Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by having five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py`) for processing all the frames within FrameNet where each script handles 250 frames. 
 
