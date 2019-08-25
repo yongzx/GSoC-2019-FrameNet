@@ -64,6 +64,7 @@ def create_fn_LU_embeddings(embedding, save_file):
 ```
 
 **Output**
+
 The pickled file `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/lus_fn1.7_bert.p` stores the dictionary of lexical units' ids mapped to their BERT embeddings.
 ```
 ...
