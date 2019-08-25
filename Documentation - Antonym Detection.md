@@ -98,7 +98,7 @@ The returned result of the function below is a list of tuples of antonymous pair
 ---
 
 ## Implementation Details
-(`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/deployed_antonym_{1/2/3/4/5}.py`)
+**Python Files**: `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/deployed_antonym_{1/2/3/4/5}.py`
 
 ### 1. Generate BERT embeddings for Lexical Units
 
