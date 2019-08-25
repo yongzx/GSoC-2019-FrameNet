@@ -1,6 +1,6 @@
 # Antonym Detection
 
-This documentation describes the work on identifying antonymous lexical units within the same frame. This section is inspired by ... 
+This documentation describes the work on identifying antonymous lexical units within the same frame. This section is inspired by Hasegawa et al. (2011)'s paper that suggests a frame containing antonymous LUs should be split into two subordinate frames with a new antonymic frame-to-frame relation between each subordinate frame and the parent frame.
 
 **Table of Content**
 - [Tutorial](#tutorial)
@@ -12,10 +12,16 @@ This documentation describes the work on identifying antonymous lexical units wi
 
 ---
 ## Tutorial
-All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection`. 
+All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection`.
 
-The `sbatch` script used to identify antonyms within FrameNet 1.7 is as followed:
+There are five slurm scripts (`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task{1/2/3/4/5}.slurm`) used to identify antonyms within FrameNet 1.7. 
+- `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task1.slurm` generates `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p` which contains antonymous lexical units in the first 250 frames.
+- `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task2.slurm` generates `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_2.p` which contains antonymous lexical units in the 251st to 500th frames.
+- `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task3.slurm` generates `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_3.p` which contains antonymous lexical units in the 501st to 750th frames.
+- `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task4.slurm` generates `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_4.p` which contains antonymous lexical units in the 751st to 1000th frames.
+- `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task5.slurm` generates `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_5.p` which contains antonymous lexical units in the rest of the frames (from 1001st frames onward).
 
+The slurm script `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/task1.slurm` is as followed:
 ```bash
 #!/bin/bash
 #SBATCH -N 1
@@ -33,7 +39,13 @@ export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week9-12/antonym-det
 singularity exec production.sif python3 -u /mnt/deployed_antonym_1.py > ./output1.out
 ```
 
-The list of pairs of antonymous lexical units within the same frame are stored in the five pickled files - `potential_antonyms_cosine_sim_with_dep_1.p`, `potential_antonyms_cosine_sim_with_dep_2.p`, `potential_antonyms_cosine_sim_with_dep_3.p`, `potential_antonyms_cosine_sim_with_dep_4.p`, `potential_antonyms_cosine_sim_with_dep_5.p`.
+**Output**
+
+`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out` shows the progress of identifying antonymous lexical units within the first 250 frames. `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p` is a pickled file of a list of pairs of antonymous lexical units within the same frame. They are in the format of `(lexical unit 1, lexical unit 2, id of lexical unit 1, id of lexical unit 2)`.
+
+```
+..., ('button.v', 'fasten.v', 4544, 4677), ('button.v', 'unfasten.v', 4544, 4711), ('button.v', 'tie.v', 4544, 4757), ('open.v', 'buckle.v', 4545, 4547), ('open.v', 'cap.v', 4545, 4550), ...
+```
 
 ---
 
@@ -412,6 +424,7 @@ I manually looked through 150 randomly selected frames within FrameNet, and I cl
 
 ```
 (1) frames where antonyms are grouped together
+
  Temperature : ['temperature.n', 'hot.a', 'cool.a', 'freezing.a', 'cold.a', 'lukewarm.a', 'tepid.a', 'frigid.a', 'scalding.a', 'warm.a']
 - Posture : ['bend.v', 'crouch.v', 'hunch.v', 'huddle.v', 'kneel.v', 'lean.v', 'lie.v', 'sit.v', 'slouch.v', 'sprawl.v', 'squat.v', 'stand.v', 'stoop.v', 'bent.a', 'crouched.a', 'huddled.a', 'hunched.a', 'sprawled.a', 'slouched.a', 'seated.a', 'posture.n', 'stance.n', 'position.n', 'cower.v', 'shrink.v']
 - Ordinal_numbers : ['first.a', 'second.a', 'third.a', 'fourth.a', 'fifth.a', 'thirteenth.a', 'nineteenth.a', 'last.a', 'eighth.a', 'tenth.a', 'ninth.a', 'seventeenth.a', 'sixteenth.a', 'final.a']
