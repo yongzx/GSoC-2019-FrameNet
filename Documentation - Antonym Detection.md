@@ -367,7 +367,7 @@ def detect_antonyms_framenet_cosine_similarity_dep(lus_embed_file, model):
 ---
 ## Bugs And Challenges
 
-**Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by creating five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py`) for processing all the frames within FrameNet where each script handled at most 250 frames. 
+**Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by creating five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py` in the folder `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection`) for processing all the frames within FrameNet where each script handled at most 250 frames. 
 
 **Module Not Found Error** (`ModuleNotFoundError: No module named 'fused_layer_norm_cuda'`) - This error was caused by my previous local installation of `nvidia/apex` for BERT processing using the `pytorch-pretrained-bert` library in HPC clusters. Even when `import apex` was not called in the script, if `apex` was installed and detected, the Python script would run into the `ModuleNotFoundError`. The first reason was that all Python scripts were not run on a GPU node with CUDA - instead, they were run with CPU nodes of HPC clusters. Second, the deployed Singularity container that was built on my personal MacOS environment did not have the `apex` library installed with CUDA extensions due to the lack of GPUs, and it's impossible to `sudo pip3 install` the `apex` library on the HPC clusters.
 
