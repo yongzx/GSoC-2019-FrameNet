@@ -1,4 +1,4 @@
-# Documentation of Generating Embeddings for FrameNet Lexical Units
+# Generating Embeddings for FrameNet Lexical Units
 
 I generated the BERT embeddings for FrameNet lexical units using the natural language processing `flair` library. 
 
