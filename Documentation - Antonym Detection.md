@@ -102,7 +102,7 @@ The returned result of the function below is a list of tuples of antonymous pair
 
 ### 1. Generate BERT embeddings for Lexical Units
 
-Output: A pickled file (`lus_fn1.7_bert.p`) that saved the mapping of the IDs of lexical units to their BERT embeddings
+**Output**: A pickled file (`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/lus_fn1.7_bert.p`) that saved the mapping of the IDs of lexical units to their BERT embeddings
 
 The function is a script in another folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/create_embeddings.py`.
 
@@ -135,7 +135,7 @@ def create_fn_LU_embeddings(embedding, save_file):
 
 ### 2. Generate BERT embeddings for WordNet Synsets
 
-Output: A pickled file (`synsets_wn_bert.p`) that saved the mapping of the names of the WordNet synsets (e.g. `able.a.01`) to their BERT embeddings.
+**Output**: A pickled file (`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/synsets_wn_bert.p`) that saved the mapping of the names of the WordNet synsets (e.g. `able.a.01`) to their BERT embeddings.
 
 ```python
 def generate_embeddings_synsets(save_embedding_file, embedding=BertEmbeddings()):
@@ -175,16 +175,16 @@ def generate_embeddings_synsets(save_embedding_file, embedding=BertEmbeddings())
 
 ### 3. Generating Training and Testing Dataset from WordNet (with POS and Dependency Parsing)
 
-Output: A pickled dataset named `generate_antonym_dataset_cosine_similarity_dep_with_non_antonym.p`. 
+**Output**: A pickled dataset named `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/generate_antonym_dataset_cosine_similarity_dep_with_non_antonym.p`. 
 
-Overall, the function generates all the antonym pairs before generating the same number of non-antonymous pairs.
+Overall, the function generated all the antonym pairs before generating the same number of non-antonymous pairs.
 
-- Only pairs of synsets that share the same POS are considered in the dataset.
-- The function `get_dep_relations` returns a mapping of each token in the tokenized sentence to its level and dependency relations in the dependency-parsed tree. This uses the API of the UDPipe. An example would be `{'take.VERB': [(0, 'root')], 'she.PRON': [(1, 'nsubj'), (2, 'nmod:poss')], 'care.NOUN': [(1, 'obj')], 'man.NOUN': [(1, 'obl')], 'good.ADJ': [(2, 'amod')], 'of.ADP': [(2, 'case')], 'faithful.ADJ': [(0, 'root')], 'woman.NOUN': [(1, 'obl')], 'be.AUX': [(1, 'cop')], 'he.PRON': [(1, 'nsubj'), (2, 'nmod:poss')], 'to.ADP': [(2, 'case')]}`
-- The function `process_dep_relations` takes in the hash-map returned by `get_dep_relations` and average the level and dependency relations (in integer representation) of each token in the tokenized sentence. The example would be `{'take.VERB': (0.0, 34.0), 'she.PRON': (1.5, 25.5), 'man.NOUN': (1.0, 29.0), 'care.NOUN': (1.0, 28.0), 'of.ADP': (2.0, 6.0), 'good.ADJ': (2.0, 3.0), 'faithful.ADJ': (0.0, 34.0), 'be.AUX': (1.0, 12.0), 'he.PRON': (1.5, 25.5), 'woman.NOUN': (1.0, 29.0), 'to.ADP': (2.0, 6.0)}`
-- `cos(X, Y)` generates the cosine similarity of two word embeddings `X` and `Y`.
+- Only pairs of synsets that shared the same POS are considered in the dataset.
+- The function `get_dep_relations` returned a mapping of each token in the tokenized sentence to its level and dependency relations in the dependency-parsed tree. This used the API of the UDPipe. An example would be `{'take.VERB': [(0, 'root')], 'she.PRON': [(1, 'nsubj'), (2, 'nmod:poss')], 'care.NOUN': [(1, 'obj')], 'man.NOUN': [(1, 'obl')], 'good.ADJ': [(2, 'amod')], 'of.ADP': [(2, 'case')], 'faithful.ADJ': [(0, 'root')], 'woman.NOUN': [(1, 'obl')], 'be.AUX': [(1, 'cop')], 'he.PRON': [(1, 'nsubj'), (2, 'nmod:poss')], 'to.ADP': [(2, 'case')]}`
+- The function `process_dep_relations` took in the hash-map returned by `get_dep_relations` and averaged the level and dependency relations (in integer representation) of each token in the tokenized sentence. The example would be `{'take.VERB': (0.0, 34.0), 'she.PRON': (1.5, 25.5), 'man.NOUN': (1.0, 29.0), 'care.NOUN': (1.0, 28.0), 'of.ADP': (2.0, 6.0), 'good.ADJ': (2.0, 3.0), 'faithful.ADJ': (0.0, 34.0), 'be.AUX': (1.0, 12.0), 'he.PRON': (1.5, 25.5), 'woman.NOUN': (1.0, 29.0), 'to.ADP': (2.0, 6.0)}`
+- `cos(X, Y)` generated the cosine similarity of two word embeddings `X` and `Y`.
 - `X = [x1, x2, x3, ...]` where each `x` is a tuple of cosine similarity of the two synset embeddings, the average dependency level of the first synset, the average dependency relations of the first synset, the average dependency level of the second synset, and the average dependency relations of the second synset. 
-- `Y = [y1, y2, y3]` where each `y` is `1` if it corresponds to an antonymous pair and `0` if it corresponds to a non-antonymous pair.
+- `Y = [y1, y2, y3]` where each `y` is `1` if it corresponded to an antonymous pair and `0` if it corresponded to a non-antonymous pair.
 
 ```python
 def generate_antonym_dataset_cosine_similarity_dep(H):
@@ -274,7 +274,7 @@ def generate_antonym_dataset_cosine_similarity_dep(H):
 
 ##### 4 / 5. Training and Testing the Decision Tree Classifier
 
-Output: The accuracy score of the classifier and the saved file of the trained classifier model
+**Output**: The trained classifier model was saved as `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/antonym_decision_tree_classifier_cosine_sim_with_dep.joblib`.
 
 ```python
 @contextmanager
@@ -314,7 +314,7 @@ Output: The pickled files (`/home/zxy485/zxy485gallinahome/week9-12/antonym-dete
 - The function `get_dep_relations` returned a mapping of each token in the tokenized sentence to its level and dependency relations in the dependency-parsed tree. This used the API of the UDPipe. An example would be `{'abandon.VERB': [(0, 'root'), (2, 'conj'), (2, 'acl'), (0, 'root'), (0, 'root'), (1, 'parataxis'), (0, 'root'), (2, 'advcl'), (2, 'conj'), (1, 'conj'), (0, 'root'), (1, 'ccomp'), .. (0, 'root')], '..PUNCT': [(1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), .. ], 'plan.NOUN': [(1, 'obj'), (1, 'obj'), (2, 'obj'), (1, 'obj')],  ... }`
 - The function `process_dep_relations` took in the hash-map returned by `get_dep_relations` and averaged the level and dependency relations (in integer representation) of each token in the tokenized sentence. The example would be `{'abandon.VERB': (0.9130434782608695, 17.869565217391305), '..PUNCT': (1.0, 32.0), 'plan.NOUN': (1.25, 28.0), ...}`
 - `cos(X, Y)` generated the cosine similarity of two word embeddings `X` and `Y`.
-- `X = [x1, x2]` where `x1` is a tuple of cosine similarity of the two LUs' embeddings, the average dependency level of the first LU, the average dependency relations of the first LU, the average dependency level of the second LU, and the average dependency relations of the second LU. `x2`  is a tuple of cosine similarity of the two LUs' embeddings, the average dependency level of the second LU, the average dependency relations of the second LU, the average dependency level of the first LU, and the average dependency relations of the first LU. The example is `[[tensor(0.6349), 0.9130434782608695, 17.869565217391305, 1.2, 20.0], [tensor(0.6349), 1.2, 20.0, 0.9130434782608695, 17.869565217391305]]`
+- `X = [x1, x2]` where `x1` is a tuple of cosine similarity of the two LUs' embeddings, the average dependency level of the first LU, the average dependency relations of the first LU, the average dependency level of the second LU, and the average dependency relations of the second LU. `x2`  is a tuple of cosine similarity of the two LUs' embeddings, the average dependency level of the second LU, the average dependency relations of the second LU, the average dependency level of the first LU, and the average dependency relations of the first LU. An example would be `[[tensor(0.6349), 0.9130434782608695, 17.869565217391305, 1.2, 20.0], [tensor(0.6349), 1.2, 20.0, 0.9130434782608695, 17.869565217391305]]`
 
 ```python
 def detect_antonyms_framenet_cosine_similarity_dep(lus_embed_file, model):
