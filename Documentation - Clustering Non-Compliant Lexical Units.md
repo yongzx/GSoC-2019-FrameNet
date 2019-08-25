@@ -1,4 +1,6 @@
-# Documentation - Clustering Lexical Units
+# Clustering Non-Compliant Lexical Units
+
+This documentation details the process of clustering the lexical units which are non-existent in Berkeley FrameNet 1.7 and which do not pass through either the POS or Core FEs valence pattern checking.
 
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `cluster_LUs_AP.py`.
 
