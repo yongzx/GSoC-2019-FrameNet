@@ -41,7 +41,9 @@ singularity exec production.sif python3 -u /mnt/deployed_antonym_1.py > ./output
 
 **Output**
 
-`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out` shows the progress of identifying antonymous lexical units within the first 250 frames. `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p` is a pickled file of a list of pairs of antonymous lexical units within the same frame. They are in the format of `(lexical unit 1, lexical unit 2, id of lexical unit 1, id of lexical unit 2)`.
+`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out` shows the progress of identifying antonymous lexical units within the first 250 frames. 
+
+`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p` is a pickled file of a list of pairs of antonymous lexical units within the same frame. They are in the format of `(lexical unit 1, lexical unit 2, id of lexical unit 1, id of lexical unit 2)`. The following is the sample result.
 
 ```
 ..., ('button.v', 'fasten.v', 4544, 4677), ('button.v', 'unfasten.v', 4544, 4711), ('button.v', 'tie.v', 4544, 4757), ('open.v', 'buckle.v', 4545, 4547), ('open.v', 'cap.v', 4545, 4550), ...
@@ -53,57 +55,54 @@ singularity exec production.sif python3 -u /mnt/deployed_antonym_1.py > ./output
 
 ### 1. Generate BERT embeddings for Lexical Units
 
-Lexical units are the combination of lemmas and their part-of-speech tags. For example, “run.v”, “long.v”, “long.adj”, etc. They are words that evoke a semantic frame (i.e., a description of a type of event, relation, or entity and the participants in it.) from FrameNet 1.7.
+Lexical units are the combination of lemmas and their part-of-speech tags. For example, "run.v", "long.v", "long.adj", etc. They are words that evoke a semantic frame (i.e., a description of a type of event, relation, or entity and the participants in it.) from FrameNet 1.7.
 
-The BERT embedding of a lexical unit is obtained by averaging the BERT embeddings of the lexical unit appearing in the annotated sentences in FrameNet. If there’s no actual text in FrameNet that features the lexical unit, which means that there’s no sentence examples of the lexical unit, its embedding will be a zero tensor.
+The BERT embedding of a lexical unit is obtained by averaging the BERT embeddings of the lexical unit appearing in the annotated sentences in FrameNet. If there are no sentence examples of the lexical unit, the embedding of the lexical unit will be a zero tensor.
 
 ### 2. Generate BERT embeddings for WordNet Synsets
 
-WordNet is the lexical database i.e. dictionary for the English language, specifically designed for natural language processing. Nouns, verbs, adjectives and adverbs are grouped into sets of cognitive synonyms (synsets), each expressing a distinct concept. Synsets are interlinked by means of conceptual-semantic and lexical relations.
+WordNet is the lexical database i.e., dictionary for the English language, specially designed for natural language processing. Nouns, verbs, adjectives, and adverbs are grouped into sets of cognitive synonyms (synsets), each expressing a distinct concept. Synsets are interlinked through conceptual-semantic and lexical relations.
 
-The BERT embedding of a synset is obtained by averaging the BERT embeddings of the synset’s lemmas appearing in the annotated sentences in WordNet. The sentences will have to be preprocessed by tokenization and lemmatization. If the synset does not have any example sentence, it will not be included in the hash-map that maps the synset’s name to its BERT embeddings. In other words, not all the synsets from WordNet have their respective embeddings (not even a zero tensor).
+The BERT embedding of a synset is obtained by averaging the BERT embeddings of the synset's lemmas appearing in the annotated sentences in WordNet. The sentences will be preprocessed by tokenization and lemmatization. If the synset does not have any example sentence, it will not be included in the hash-map that maps the synset's name to its BERT embeddings. In other words, not all the synsets from WordNet have their respective embeddings (not even a zero tensor).
 
 ### 3. Generating Training and Testing Dataset from WordNet
 
-Dataset of antonymous pairs of lemmas are generated to train a decision tree classifier. The dataset consists of antonymous pairs of synsets and non-antonymous pairs of synsets, all of which are transformed into cosine-similarity of each other. Non-antonymous pairs of synsets are obtained by randomly pairing two synsets which are not antonymous to each other. The number of non-antonymous pairs of synsets is adjusted such that it matches the number of the antonymous pairs. 
+Dataset of antonymous pairs of lemmas was generated to train a decision tree classifier. The training dataset was the cosine-similarity of antonymous pairs of synsets and non-antonymous pairs of synsets. Non-antonymous pairs of synsets were obtained by randomly pairing two synsets which are not antonymous to each other. The number of non-antonymous pairs of synsets was adjusted such that it matched the number of the antonymous pairs. 
 
 ### 4. Training the Decision Tree Classifier
 
-Subsequently, I train the decision tree classifier (which uses CART algorithm) from `sklearn` library with the dataset generated. The antonyms and non-antonyms are split by a ratio of 0.33 into training and testing dataset.
+Subsequently, I trained the decision tree classifier (which uses CART algorithm) from `sklearn` library with the dataset generated. The antonyms and non-antonyms were split by a ratio of 0.33 into training and testing dataset.
 
 ### 5. Testing the Classifier
 
 ### 5A - POS
 
-Without factoring POS into account, there are 3322 antonyms pairs in total and 3322 self-generated non-antonym pairs. The accuracy of the classifier is 0.76. 
+Without factoring POS into account, there were 3322 antonyms pairs in total and 3322 self-generated non-antonym pairs. The accuracy of the classifier was 0.76. 
 
-After factoring POS into account, there are 2320 antonyms pairs in total and 2320 self-generated non-antonym pairs. In other words, each pair of the antonymous and non-antonymous pairs of synsets share the same POS. The accuracy of the classifier is 0.83. 
+After factoring POS into account, there were 2320 antonyms pairs in total and 2320 self-generated non-antonym pairs. Each pair of the antonymous and non-antonymous pairs of synsets shared the same POS. The accuracy of the classifier was 0.83. 
 
 **5B - Dependency-Parsing**
 
-After considering the syntactic relations, which are the type of dependency relations and the level of the node in the parse tree, the accuracy increases to 0.88. 
+After inclduing the syntactic relations, which are the type of dependency relations and the level of the node in the parse tree, to the input, the accuracy increased to 0.88. 
 
 ### 6. Applying Classifier to FrameNet
 
-For each frame in FrameNet, all of its lexical units with the same POS tag are grouped in combinations of pairs. To reduce the number of false positives, the input to the classifier are [x1, x2] where: 
+For each frame in FrameNet, all of its lexical units with the same POS tag were grouped in combinations of pairs. To reduce the number of false positives, the input to the classifier was [x1, x2] where: 
 
 - x1 is a list consists of (in the following order) the cosine similarity between the two lexical units, the average type of depedency relation of the first lexical unit (in integer), the average level of the first lexical unit node in the parse trees of the exemplar sentences, the average type of depedency relation of the second lexical unit (in integer), and the average level of the second lexical unit node in the parse trees of the exemplar sentences.
+
 - x2 is a list consists of (in the following order) the cosine similarity between the two lexical units, the average type of depedency relation of the second lexical unit (in integer), the average level of the second lexical unit node in the parse trees of the exemplar sentences, the average type of depedency relation of the first lexical unit (in integer), and the average level of the first lexical unit node in the parse trees of the exemplar sentences.
 
 The returned result of the function below is a list of tuples of antonymous pairs in the format of (L1, L2, id(L1), id(L2)) where L1 and L2 are antonymous lexical units and id() is a function that maps the lexical unit to its respective ID in FrameNet.
 
-```
-..., ('unscrew.v', 'tie.v', 4557, 4757), ('seal.v', 'fasten.v', 4625, 4677), ('seal.v', 'tie.v', 4625, 4757), ('fasten.v', 'unfasten.v', 4677, 4711), ('fasten.v', 'tie.v', 4677, 4757), ('unfasten.v', 'tie.v', 4711, 4757)]
-```
-
 ---
 
 ## Implementation Details
-(`Deployed_Antonym_{1/2/3/4/5}.py`)
+(`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/deployed_antonym_{1/2/3/4/5}.py`)
 
 ### 1. Generate BERT embeddings for Lexical Units
 
-Output: A pickled file that saves the mapping of the IDs of lexical units to their BERT embeddings
+Output: A pickled file (`lus_fn1.7_bert.p`) that saved the mapping of the IDs of lexical units to their BERT embeddings
 
 The function is a script in another folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/create_embeddings.py`.
 
@@ -136,7 +135,7 @@ def create_fn_LU_embeddings(embedding, save_file):
 
 ### 2. Generate BERT embeddings for WordNet Synsets
 
-Output: A pickled file that saves the mapping of the names of the WordNet synsets (e.g. `able.a.01`) to their BERT embeddings.
+Output: A pickled file (`synsets_wn_bert.p`) that saved the mapping of the names of the WordNet synsets (e.g. `able.a.01`) to their BERT embeddings.
 
 ```python
 def generate_embeddings_synsets(save_embedding_file, embedding=BertEmbeddings()):
@@ -309,12 +308,12 @@ if __name__ == "__main__":
 
 ### 6. Applying Classifier to FrameNet
 
-Output: The pickled file that contains the list of tuples of antonymous pairs in the format of (L1, L2, id(L1), id(L2)) where L1 and L2 are antonymous lexical units and id() is a function that maps the lexical unit to its respective ID in FrameNet.
+Output: The pickled files (`/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_{1/2/3/4/5}.p`) that contains the list of tuples of antonymous pairs in the format of (L1, L2, id(L1), id(L2)) where L1 and L2 are antonymous lexical units and id() is a function that maps the lexical unit to its respective ID in FrameNet.
 
-- Only pairs of lexical units which are in the same frame and have the same POS are classified.
-- The function `get_dep_relations` returns a mapping of each token in the tokenized sentence to its level and dependency relations in the dependency-parsed tree. This uses the API of the UDPipe. An example would be `{'abandon.VERB': [(0, 'root'), (2, 'conj'), (2, 'acl'), (0, 'root'), (0, 'root'), (1, 'parataxis'), (0, 'root'), (2, 'advcl'), (2, 'conj'), (1, 'conj'), (0, 'root'), (1, 'ccomp'), .. (0, 'root')], '..PUNCT': [(1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), .. ], 'plan.NOUN': [(1, 'obj'), (1, 'obj'), (2, 'obj'), (1, 'obj')],  ... }`
-- The function `process_dep_relations` takes in the hash-map returned by `get_dep_relations` and average the level and dependency relations (in integer representation) of each token in the tokenized sentence. The example would be `{'abandon.VERB': (0.9130434782608695, 17.869565217391305), '..PUNCT': (1.0, 32.0), 'plan.NOUN': (1.25, 28.0), ...}`
-- `cos(X, Y)` generates the cosine similarity of two word embeddings `X` and `Y`.
+- Only pairs of lexical units which are in the same frame and have the same POS were classified.
+- The function `get_dep_relations` returned a mapping of each token in the tokenized sentence to its level and dependency relations in the dependency-parsed tree. This used the API of the UDPipe. An example would be `{'abandon.VERB': [(0, 'root'), (2, 'conj'), (2, 'acl'), (0, 'root'), (0, 'root'), (1, 'parataxis'), (0, 'root'), (2, 'advcl'), (2, 'conj'), (1, 'conj'), (0, 'root'), (1, 'ccomp'), .. (0, 'root')], '..PUNCT': [(1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), (1, 'punct'), .. ], 'plan.NOUN': [(1, 'obj'), (1, 'obj'), (2, 'obj'), (1, 'obj')],  ... }`
+- The function `process_dep_relations` took in the hash-map returned by `get_dep_relations` and averaged the level and dependency relations (in integer representation) of each token in the tokenized sentence. The example would be `{'abandon.VERB': (0.9130434782608695, 17.869565217391305), '..PUNCT': (1.0, 32.0), 'plan.NOUN': (1.25, 28.0), ...}`
+- `cos(X, Y)` generated the cosine similarity of two word embeddings `X` and `Y`.
 - `X = [x1, x2]` where `x1` is a tuple of cosine similarity of the two LUs' embeddings, the average dependency level of the first LU, the average dependency relations of the first LU, the average dependency level of the second LU, and the average dependency relations of the second LU. `x2`  is a tuple of cosine similarity of the two LUs' embeddings, the average dependency level of the second LU, the average dependency relations of the second LU, the average dependency level of the first LU, and the average dependency relations of the first LU. The example is `[[tensor(0.6349), 0.9130434782608695, 17.869565217391305, 1.2, 20.0], [tensor(0.6349), 1.2, 20.0, 0.9130434782608695, 17.869565217391305]]`
 
 ```python
