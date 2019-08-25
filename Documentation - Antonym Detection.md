@@ -1,5 +1,17 @@
-# Documentation - Antonym Detection
+# Antonym Detection
 
+This documentation describes the work on identifying antonymous lexical units within the same frame. This section is inspired by ... 
+
+**Table of Content**
+- [Tutorial](#tutorial)
+- [How It Works](#how-it-works)
+- [Implementation Details](#implementation-details)
+  - [Bugs And Challenges](#bugs-and-challenges)
+  - [Documentation of Singularity Containers](#documentation-of-singularity-containers)
+- [Future Direction](#future-direction)
+
+---
+## Tutorial
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection`. 
 
 The `sbatch` script used to identify antonyms within FrameNet 1.7 is as followed:
@@ -22,14 +34,6 @@ singularity exec production.sif python3 -u /mnt/deployed_antonym_1.py > ./output
 ```
 
 The list of pairs of antonymous lexical units within the same frame are stored in the five pickled files - `potential_antonyms_cosine_sim_with_dep_1.p`, `potential_antonyms_cosine_sim_with_dep_2.p`, `potential_antonyms_cosine_sim_with_dep_3.p`, `potential_antonyms_cosine_sim_with_dep_4.p`, `potential_antonyms_cosine_sim_with_dep_5.p`.
-
----
-
-## Challenges During Deployment and Solutions
-
-**Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by having five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py`) for processing all the frames within FrameNet where each script handles 250 frames. 
-
-**Error** (`ModuleNotFoundError: No module named 'fused_layer_norm_cuda'`) - This error is caused by my previous local installation of `nvidia/apex` for BERT processing using the `pytorch-pretrained-bert` library. Even when `import apex` is not called in the script, if `apex` is installed and detect, the Python script will run into the `ModuleNotFoundError` because first of all, the Python script is not run on a GPU node with CUDA. Second, the deployed Singularity container built on my personal MacOS environment doesn't have the `apex` library installed with CUDA extensions.
 
 ---
 
@@ -82,7 +86,8 @@ The returned result of the function below is a list of tuples of antonymous pair
 
 ---
 
-## Overall Implementation Details (`Deployed_Antonym_{1/2/3/4/5}.py`)
+## Implementation Details
+(`Deployed_Antonym_{1/2/3/4/5}.py`)
 
 ### 1. Generate BERT embeddings for Lexical Units
 
@@ -360,7 +365,14 @@ def detect_antonyms_framenet_cosine_similarity_dep(lus_embed_file, model):
 ```
 
 ---
-## Documentation of Creating Singularity Containers
+## Challenges During Deployment and Solutions
+
+**Long Processing Time** - To hasten the process of identifying all the antonyms, I used the parallel processing paradigm by having five Python scripts (`deployed_antonym_1.py`, `deployed_antonym_2.py`, `deployed_antonym_3.py`, `deployed_antonym_4.py`, `deployed_antonym_5.py`) for processing all the frames within FrameNet where each script handles 250 frames. 
+
+**Error** (`ModuleNotFoundError: No module named 'fused_layer_norm_cuda'`) - This error is caused by my previous local installation of `nvidia/apex` for BERT processing using the `pytorch-pretrained-bert` library. Even when `import apex` is not called in the script, if `apex` is installed and detect, the Python script will run into the `ModuleNotFoundError` because first of all, the Python script is not run on a GPU node with CUDA. Second, the deployed Singularity container built on my personal MacOS environment doesn't have the `apex` library installed with CUDA extensions.
+
+---
+## Documentation of Singularity Containers
 
 I create the Singularity container `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/production.sif` for this task of identifying new lexical units and creating BERT embeddings for them using Vagrant Box in MacOS.
 
