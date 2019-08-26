@@ -18,7 +18,7 @@ The `sbatch` script (`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/task-mu
 #SBATCH -N 1
 #SBATCH -c 1
 #SBATCH --mem-per-cpu=5G
-#SBATCH --time=30-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --output=multilingual_frame_assignment.stdout
 #SBATCH --error=multilingual_frame_assignment.err
 #SBATCH --job-name="frame assignment using multilingual FN"
@@ -56,11 +56,15 @@ Process Cluster Index: 54
 Process Cluster Index: 77
 Process Cluster Index: 23
 ...
+API request limit reached. sleep for 24hours. Sleep Starts..
+...
 [Assign Frames (BrasilFN)] starts.
 Process Cluster Index: 53
 president trump will have an opportunity to frame this debate beforehand when he invites members of his cabinet at 12:00 . : O presidente Trump terá a oportunidade de estruturar esse debate de antemão quando ele convidar membros de seu gabinete às 12:00.
 Process Cluster Index: 79
 a toddler rushed to the hospital after falling into a rhino enclosure at a florida zoo . : uma criança correu para o hospital depois de cair em um recinto de rinoceronte em um zoológico da Flórida.
+...
+API request limit reached. sleep for 24hours. Sleep Starts...
 ...
 ```
 
