@@ -25,7 +25,11 @@ Second, SEMAFOR could not be implemented because `pyfn` was not working and the 
 
 ### Second Objective
 #### Knowledge-driven approach - BabelNet
+I did not successfully deploy the Singularity container for expanding FrameNet using BabelNet synsets because due to the API request limits, it would take 3 months for completing the representing FrameNet frames with BabelNet synsets. This expected duration does not include finding the best representative BabelNet synsets for a new lexical units. In other words, it would take more than 3 months to use BabelNet Web API to expand FrameNet.
 
+My mentor Prof. Tiago and I have sent emails to Roberto Navigli to request for the entire BabelNet dataset but to date, we have not hear back from him to date. However, despite this setback, I have created the Python Script `/home/zxy485/zxy485gallinahome/week5-8/babelnet.py` that maps a frame and POS to the set of BabelNet synsets that generalizes the LUs in the particular frame. The dictionary is stored as a pickled file `{frame_name}_subgraphs.p` in the folder `/home/zxy485/zxy485gallinahome/week5-8/babelnet_synsets`. 
+
+To date, I have processed 52 frames and generated their BabelNet synsets representation for four different POS - nouns, verbs and adjectives/adverbs. 
 
 #### Distributional Semantics Approach - BERT Embeddings
 Before generating frame embeddings, I read through 10 papers to understand the recent practices with creating frame embeddings and summarized their methodologies in a report. I decided to replace the initial proposed DSSM model with BERT model to generate embeddings for lexical units and frames because BERT use attention models to create sentence embeddings, which better capture the semantic concepts of a sentence.
