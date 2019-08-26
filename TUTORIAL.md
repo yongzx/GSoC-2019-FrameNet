@@ -300,6 +300,7 @@ $ python3
 - Check the progress output
 ```
 $ cat /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/multilingual_frame_assignment_output.out
+
 ### Korean FrameNet ###
 	# contact: hahmyg@kaist, hahmyg@gmail.com #
 
