@@ -294,3 +294,44 @@ $ python3
 - `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_clustered_LUs.png` is the t-SNE Visualization of lexical units which are clustered.
 
 ![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_clustered_LUs.png)
+
+
+*Step 5*
+- Check the progress output
+```
+$ cat /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/multilingual_frame_assignment_output.out
+### Korean FrameNet ###
+	# contact: hahmyg@kaist, hahmyg@gmail.com #
+
+/mnt/koreanframenet/resource/1.1/KFN_lus.json
+[Load LUs and their tensors] starts.
+[Load LUs and their tensors] takes 0.01 minutes.
+[Load clusters_to_LU_tensor_tuples] starts.
+[Load clusters_to_LU_tensor_tuples] takes 0.00 minutes.
+[Assign Frames (KoreanFN)] starts.
+Process Cluster Index: 54
+Process Cluster Index: 77
+Process Cluster Index: 23
+...
+API request limit reached. sleep for 24hours. Sleep Starts..
+...
+[Assign Frames (BrasilFN)] starts.
+Process Cluster Index: 53
+president trump will have an opportunity to frame this debate beforehand when he invites members of his cabinet at 12:00 . : O presidente Trump terá a oportunidade de estruturar esse debate de antemão quando ele convidar membros de seu gabinete às 12:00.
+Process Cluster Index: 79
+a toddler rushed to the hospital after falling into a rhino enclosure at a florida zoo . : uma criança correu para o hospital depois de cair em um recinto de rinoceronte em um zoológico da Flórida.
+...
+API request limit reached. sleep for 24hours. Sleep Starts...
+...
+```
+
+- `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/clusters_to_multilingual_potential_frames_counters.p` stores a dictionary that maps cluster indexes to a collections.Counter dictionary of potential frames retrieved from multilingual framenets. The tuple contains the frame name, the name of the multilingual FrameNet, and the frame's id in its FrameNet database.
+**Note**: This stored output currently is incomplete because I only resolved the issue with API requests limit on week 13 (last week of GSoC), so there's not enough time for full output generation.
+```
+$ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
+$ python3
+>>> import pickle
+>>> pickle.load(open('/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/clusters_to_multilingual_potential_frames_counters.p', 'rb'))
+
+{53: Counter(), 79: Counter(), 22: Counter({('People_by_age', 'kofn', 5159): 1, ('frm_people_by_age', 'brfn', 3677): 1})}
+```
