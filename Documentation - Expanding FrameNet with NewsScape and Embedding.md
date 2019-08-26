@@ -78,10 +78,19 @@ Sentence: PASSING THE TORCH FROM 2018 TO 2019.
 
 There are three generated pickled files. 
 1. `{folder}/matched_coreFEs_lus-{seg_file}.p`. For example, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/matched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores the new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and which do not exist in Berkeley FrameNet 1.7.
+``` 
+{..., 'season.n': 16012, 'kit.n': 4221, 'insurance.n': 16121, 'penn.n': 16121, 'trebek.n': 4305, 'quarterback.n': 16012, 'washington.n': 10585, ...}
+```
 
 2. `{folder}/unmatched_pos_lus-{seg_file}.p`. For example, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_pos_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the POS filter.
+```
+{'crying.n': tensor([-0.3601,  0.9405,  0.4090,  ...,  0.7458,  0.1140, -0.6848]), 'nothing.n': tensor([ 0.0093, -0.0860, -0.0291,  ..., -0.1037, -0.0613, -0.6192]), 'dark.n': tensor([ 0.2622,  0.5236,  0.6394,  ...,  0.3478,  1.0145, -0.3825]), 'idling.n': tensor([-0.0031, -0.2561,  0.5420,  ..., -1.0558, -0.0892, -0.3096]), 'carter.n': tensor([-0.2083, -0.1723, -0.4687,  ..., -0.1857,  0.1192, -1.0462]), 'indefendant.n': tensor([ 0.1130, -0.0869,  0.1047,  ..., -0.5166, -0.1262, -0.1070]), 'context.n': tensor([-0.5003,  0.2394, -0.1679,  ...,  0.4758, -0.0024,  0.6117]), 'seed.n': tensor([ 0.4037, -0.0945, -0.2414,  ...,  0.0398, -0.2197, -0.2701]), 'qualifying.n': tensor([ 0.2838,  0.2489,  0.4820,  ..., -0.4504, -0.2197, -0.4507]), 'warm-up.n': tensor([-0.7397, -0.7589,  0.2845,  ...,  0.0975,  0.2958, -0.0367])}
+```
 
 3. `{folder}/unmatched_coreFEs_lus-{seg_file}.p`. For example, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the Core Frame Elements filter.
+```
+{ ..., 'lifetime.n': tensor([ 1.6898, -0.5895,  1.2588,  ...,  0.0404,  0.3949, -0.8979]), 'guarantee.n': tensor([ 0.3999, -0.6460,  0.2950,  ..., -0.3751,  0.2995, -0.0348]), 'coaching.n': tensor([-0.1619,  0.1011, -0.0326,  ..., -1.0178, -0.2577,  1.1803]), ...}
+```
 
 ---
 
