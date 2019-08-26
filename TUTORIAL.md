@@ -288,7 +288,9 @@ $ python3
 ```
 
 - `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_LU_vectors.png` is the t-SNE Visualization of lexical units.
+
 ![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_LU_vectors.png)
 
 - `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_clustered_LUs.png` is the t-SNE Visualization of lexical units which are clustered.
+
 ![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_clustered_LUs.png)
