@@ -10,5 +10,6 @@ First, I did not use `pyfn` library as suggested in my proposal because the libr
 Second, SEMAFOR could not be implemented because `pyfn` was not working and the pretrained models (MaltParser trained on Penn Treebank and the model files for SEMAFOR trained on the FrameNet 1.7 datasets) in https://github.com/AlenUbuntu/semafor_Framenet_v1.7 were missing. I had sent multiple follow-up emails to the author and the person-of-contact listed in the repository but I had not received any reply to date.
 
 **Documentation of PyDaisy and Open-Sesame parsers** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20PyDaisy%20and%20OpenSesame.md
+
 **Detailed reasons of not using `pyfn`** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/GSoC%20Phase%201_%20Report%20on%20pyfn.pdf
 
