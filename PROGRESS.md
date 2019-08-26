@@ -77,25 +77,19 @@ c) Finally, call BabelNet API to retrieve all the lemmas and example sentences i
 
 5. I ran into deployment issues for most of the time during the week, so I didn’t have enough time catering for the task of “Research papers on antonym detection models and implement multi-lingual embeddings for LUs.” The challenges and the bugs I met are documented in the documentation.
 
-#### Week 11 (8/5/19 - 8/9/19):
-1. **Clustering of Lexical Units that are Filtered out by POS and Core FEs**: I have applied Affinity Propagation clustering technique on the LU embeddings. Result clusters of a few filtered lexical units can be seen [here](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_clustered_LUs.png). I attempt to optimize the hyperparameters of Affinity Propagation but to no avail.
-
-2. **Assign frames to clusters using KoreanFN**: I explore the translation libraries and use KoreanFN to assign frames to the clusters. I discard using SwedenFN because the number of Swedish lexical units is too few. I tackle the limitation of API translation requests limit by only translating the lemma and not the full exemplary sentences.
-
 #### Week 12 (8/12/16 - 8/16/19) and Week 13 (8/19/16 - 8/23/19):
-1. **Assign frames to clusters using BrasilFN**: I have modified the codes from PyDaisy to assign frames from BrasilFN to the clusters of non-compliant lexical units. I could not overcome the limitation of API translation requests limit because without major changes, the PyDaisy takes Portugese exemplary sentences as input before annotating the frames associated with the frame-evoking lemma in the sentences. As a result, I have to implement `sleep` to wait for 24 hours as the `translate` library translates 1000 words per day.
+1. **Assign frames to clusters using BrasilFN**: I have modified the codes from PyDaisy to assign frames from BrasilFN to the clusters of non-compliant lexical units. I could not overcome the limitation of API translation requests limit because, without significant changes, PyDaisy takes exemplary Portuguese sentences as input to annotate the frames. As a result, I have to implement `sleep` to wait for 24 hours as the `translate` library translates 1000 words per day.
 
 2. **Deploy and Document the Singularity Container for Clustering of Lexical Units**: Successfully Deployed with Singularity on CWRU HPC. The documentation is in the link https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Clustering%20Non-Compliant%20Lexical%20Units.md. 
 
 3. **Deploy and Document the Singularity Container for Frame Assignment using Multilingual FN**: Successfully Deployed with Singularity on CWRU HPC. The documentation is in the link https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Frame%20Assignment%20using%20Multilingual%20FN.md. The challenges faced in deployment are documented in the documentation.
 
 4. **TUTORIAL.md**: I have written a Tutorial page for Red Hen mentors to verify the success of my documentation.
-- I set up the necessary folders and example cases for the tutorial.
-- I write the end-to-end tutorial for each Singularity container and include the outputs for the mentors to verify the success.
+- I set up the necessary folders and example cases for the Tutorial.
+- I write the end-to-end Tutorial for each Singularity container and include the outputs for the mentors to verify the success.
 - I consider cases where the deployment would take too long and note them in the Tutorial page. I also make sure that I give clear instructions by including the code snippets in the Tutorial.
 
-5. **README.md and Blog Post** - I have wrapped up my project and summarize my progress in the README.md page and my blog post. Future directions for each section are included in the documentations instead of the README.md because of the specificity. 
+5. **README.md and Blog Post** - I have wrapped up my project and summarize my progress in the README.md page and my blog post. Future directions for each section are included in the documentation instead of the README.md because of the specificity. 
 
-6.  I have **looked through 150 frames within FrameNet** and reading up on the FrameNet structure in “FrameNet II: Extended Theory and Practice”. I classify them into (1) frames where antonyms are grouped together, (2) antonymous frames due to the reversive pairs, (3) Relational opposites such as seller and buyer, (4), Erroneous Frames (Frames containing lexical units that are in relational opposites. Such erroneous frames are Guest_and_host where guest.n and host.n should be in separate frames according to “FrameNet II: Extended Theory and Practice”)
-
-Therefore, it doesn’t seem worthwhile resolving inconsistency because it seems that FrameNet’s frames are supposed to contain antonyms such as dry and wet in the same frame, where the lexical units differ in their semantic types (positive or negative). There are, however, few frames which are inconsistent with the notion of relational opposites should be in separate frames.
+6.  I have **looked through 150 frames within FrameNet** and reading up on the FrameNet structure in “FrameNet II: Extended Theory and Practice”. I classify them into (1) frames where antonyms are grouped, (2) antonymous frames due to the reversive pairs, (3) Relational opposites such as seller and buyer, (4), Erroneous Frames (Frames containing lexical units that are in relational opposites. Such erroneous frames are Guest_and_host where guest.n and host.n should be in separate frames according to “FrameNet II: Extended Theory and Practice”)
+Therefore, it doesn’t seem worthwhile resolving inconsistency because it appears that FrameNet’s frames are supposed to contain antonyms, such as dry and wet in the same frame, where the lexical units differ in their semantic types (positive or negative). There are, however, few frames which are inconsistent with the notion of relational opposites should be in separate frames.
