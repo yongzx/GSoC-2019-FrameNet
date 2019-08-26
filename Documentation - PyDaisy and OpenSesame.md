@@ -78,7 +78,7 @@ POS tagging via NLP4J...
 ...
 ```
 
-After the NewScape dataset is annotated, you will find the annotationg with `FRM_02` labels in the `.seg` NewsScape file. The following is the sample result of `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/2019-01-02_2200_US_FOX-News_The_Five.seg`. 
+After the NewScape dataset is annotated, you will find the annotation with `FRM_02` labels in the `.seg` NewsScape file. The following is the sample result of `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/2019-01-02_2200_US_FOX-News_The_Five.seg`. 
 
 ```
 TOP|20190102033002|2019-01-02_0330_US_KNBC_Access
