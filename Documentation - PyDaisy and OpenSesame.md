@@ -7,7 +7,7 @@ This documentation outlines the steps and the details of each step in annotating
    - [Preprocessing the data](#preprocessing-the-data)
    - [PyDaisy](#pydaisy)
    - [Open-Sesame](#open-sesame)
-   - [Future Direction](#future-direction)
+- [Future Direction](#future-direction)
 ---
 
 ## Tutorial
