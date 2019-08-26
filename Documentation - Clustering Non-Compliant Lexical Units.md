@@ -82,8 +82,11 @@ $ labels
 
 - t-SNE Visualization of lexical units: `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_LU_vectors.png`, which is the following:
 
+![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_LU_vectors.png)
+
 - t-SNE Visualization of lexical units which are clustered: `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_clustered_LUs.png`, which is the following:
 
+![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_clustered_LUs.png)
 
 ---
 
@@ -145,6 +148,7 @@ The following figure shows the LUs' embeddings represented in a 3D space.
 The following figure shows the clustered LUs' embeddings represented in a 3D space.
 
 ![viz_clustered_LUs](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_clustered_LUs.png)
+
 
 2. **Affinity Propagation**
 
