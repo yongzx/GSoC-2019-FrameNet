@@ -11,14 +11,14 @@ This documentation describes the process of assigning frames from KoreanFN and B
 ## Tutorial
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `multilingual_frame_assignment.py`.
 
-The `sbatch` script (`task-multilingual-frame-assignment.slurm`) used to assign frames to the lexical unit clusters:
+The `sbatch` script (`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/task-multilingual-frame-assignment.slurm`) used to assign frames to the lexical unit clusters:
 
 ```bash
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -c 1
 #SBATCH --mem-per-cpu=5G
-#SBATCH --time=14-00:00:00
+#SBATCH --time=30-00:00:00
 #SBATCH --output=multilingual_frame_assignment.stdout
 #SBATCH --error=multilingual_frame_assignment.err
 #SBATCH --job-name="frame assignment using multilingual FN"
@@ -40,17 +40,14 @@ store `clusters_to_multilingual_potential_frames_counters.p`, which the result f
 
 
 **Output**
+`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/clusters_to_multilingual_potential_frames_counters.p`
 
-`clusters_to_multilingual_potential_frames_counters.p`
-
-It is a pickled file of a dictionary that maps cluster indexes to a collections.Counter dictionary of potential frames retrieved from multilingual framenets.
+It is a pickled file of a dictionary that maps cluster indexes to a collections.Counter dictionary of potential frames retrieved from multilingual framenets. The tuple contains the frame name, the name of the multilingual FrameNet, and the frame's id in its FrameNet database.
 
 For example: 
-
 ```
-{..., 22: Counter({'People_by_age': 1, 'frm_people_by_age': 1}), ...}
+{..., 22: Counter({('People_by_age', 'kofn', 5159): 1, ('frm_people_by_age', 'brfn', 3677): 1, ...), ...}
 ```
-
 
 ---
 
@@ -89,14 +86,14 @@ def koreanFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
                 lemma = ''.join(LU_name.split(".")[:-1])
                 korean_translated_lemma = translator.translate(lemma)
                 while korean_translated_lemma.startswith("MYMEMORY WARNING"):
-                    print("Sleep Starts..")
+                    print("API request limit reached. sleep for 24hours. Sleep Starts..")
                     time.sleep(86400)  # API request limit reached. sleep for 24hours
                     korean_translated_lemma = translator.translate(lemma)
                     print("Sleep Ends..")
                 korean_lus = kfn.lus_by_word(korean_translated_lemma)
                 for korean_lu in korean_lus:
                     # korean_lu = {'lu': '입증하다.v', 'frame': 'Statement', 'lu_id': 5565}
-                    potential_frames_counter[korean_lu['frame']] += 1
+                    potential_frames_counter[(korean_lu['frame'], 'kofn', korean_lu['lu_id'])] += 1
             except Exception as e:
                 print(str(e))
                 continue
@@ -133,7 +130,7 @@ def BrasilFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
                 try:
                     portugese_sent = pt_translator.translate(sent)
                     while portugese_sent.startswith("MYMEMORY WARNING"):
-                        print("Sleep Starts..")
+                        print("API request limit reached. sleep for 24hours. Sleep Starts..")
                         time.sleep(86400)  # API request limit reached. sleep for 24hours
                         print("Sleep Ends..")
                         portugese_sent = pt_translator.translate(lemma)
@@ -146,7 +143,7 @@ def BrasilFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
                         lemma = ''.join(LU_name.split(".")[:-1])
                         lemma_translated = pt_translator.translate(lemma)
                         while lemma_translated.startswith("MYMEMORY WARNING"):
-                            print("Sleep Starts..")
+                            print("API request limit reached. sleep for 24hours. Sleep Starts..")
                             time.sleep(86400)  # API request limit reached. sleep for 24hours
                             print("Sleep Ends..")
                             lemma_translated = pt_translator.translate(lemma)
@@ -154,12 +151,18 @@ def BrasilFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
                         for brasil_lemma, frame in res['frames'].items():
                             brasil_lemma_translated = en_translator.translate(brasil_lemma)
                             while brasil_lemma_translated.startswith("MYMEMORY WARNING"):
-                                print("Sleep Starts..")
+                                print("API request limit reached. sleep for 24hours. Sleep Starts..")
                                 time.sleep(86400)  # API request limit reached. sleep for 24hours
                                 print("Sleep Ends..")
                                 brasil_lemma_translated = pt_translator.translate(lemma)
                             if lemma_translated == brasil_lemma or brasil_lemma_translated == lemma:
-                                potential_frames_counter[frame] += 1
+                                res_frame_id = None
+                                res_frame = frame
+                                for frame_name, _, frame_id in res['idEntityFrame'][brasil_lemma]:
+                                    if frame_name == res_frame:
+                                        res_frame_id = frame_id
+                                        break
+                                potential_frames_counter[(res_frame, 'brfn', res_frame_id)] += 1
 
                 except Exception as e:
                     print("Error:", str(e), ":", sent)
