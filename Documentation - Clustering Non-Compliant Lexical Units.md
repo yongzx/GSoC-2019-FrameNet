@@ -50,7 +50,7 @@ The final outputs are:
 
 The following example shows the list pickled in `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/lu_cluster_affinity_propagation.pkl`
 ```
-$ unmatched_LUs_to_tensors, X, LUs, cluster_centers_indices, labels = pickle.load(open("/mnt/data/0102/lu_cluster_affinity_propagation.pkl", 'rb'))
+$ unmatched_LUs_to_tensors, X, LUs, cluster_centers_indices, labels = pickle.load(open("/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/lu_cluster_affinity_propagation.pkl", 'rb'))
 
 $ unmatched_LUs_to_tensors
 'sprinkler.n': tensor([-0.0639, -0.7937,  0.5725,  ..., -0.0290,  0.6760,  0.3853]), 'curb.n': tensor([ 0.6414, -0.0556, -0.1243,  ...,  0.0016, -0.5924, -0.8106]), 'lingering.n': tensor([ 0.9284, -0.2239,  0.4346,  ...,  0.8315, -0.3735,  0.2848]), 'motor.n': tensor([ 0.4993, -0.1982,  0.7537,  ...,  0.1615, -0.2226, -0.6524])
