@@ -19,6 +19,7 @@ Before annotating the NewsScape data library with the two annotating libraries, 
 The following code shows the command that copies the 2019/01/02 NewsScape data files into the folder `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/`.
 
 ```bash
+module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 python3 get_newsscape.py --year 2019 --month 01 --day 02 --folder_path ./newsscape
 ```
 
