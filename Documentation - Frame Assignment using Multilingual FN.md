@@ -40,9 +40,8 @@ store `clusters_to_multilingual_potential_frames_counters.p`, which the result f
 
 
 **Output**
-`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/clusters_to_multilingual_potential_frames_counters.p`
 
-It is a pickled file of a dictionary that maps cluster indexes to a collections.Counter dictionary of potential frames retrieved from multilingual framenets. The tuple contains the frame name, the name of the multilingual FrameNet, and the frame's id in its FrameNet database.
+`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/clusters_to_multilingual_potential_frames_counters.p` is a pickled file of a dictionary that maps cluster indexes to a collections.Counter dictionary of potential frames retrieved from multilingual framenets. The tuple contains the frame name, the name of the multilingual FrameNet, and the frame's id in its FrameNet database.
 
 For example: 
 ```
