@@ -50,3 +50,11 @@ FIGURE FIGURE FIGURE
 **Documentation of Clustering Non-Compliant Lexical Units** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Clustering%20Non-Compliant%20Lexical%20Units.md
 
 **Documentation of Frame Assignment using Multilingual FN** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Frame%20Assignment%20using%20Multilingual%20FN.md
+
+---
+## Tutorial
+I put the tutorial for running the deployed Singularity containers for annotating NewsScape dataset, identifying antonyms and expanding FrameNet with NewsScape dataset in the page [TUTORIAL.md](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/TUTORIAL.md).
+
+---
+## Weekly Progress
+The page [PROGRESS.md](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/PROGRESS.md) documents my weekly progress throughout GSoC' 19. 
