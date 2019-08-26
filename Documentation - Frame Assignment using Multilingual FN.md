@@ -1,5 +1,10 @@
-# Documentation - Frame Assignment using Multilingual FN
+# Frame Assignment using Multilingual FN
 
+- [Tutorial](#tutorial)
+- [Implementation Details](#implementation-details)
+- []
+
+## Tutorial
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `multilingual_frame_assignment.py`.
 
 The `sbatch` script (`task-multilingual-frame-assignment.slurm`) used to assign frames to the lexical unit clusters:
@@ -43,7 +48,6 @@ For example:
 ```
 
 
-
 ---
 
 ## Implementation Details
@@ -52,7 +56,7 @@ For example:
 
 The reason for choosing Korean FN is that the library and APIs are fully implemented and it is available on GitHub - https://github.com/machinereading/koreanframenet. 
 
-In the code below, the new lexical units in a cluster are translated into korean, and they are parsed through the Korean FN APIs to search for relevant frames. Notice that the code below doesn't immediately select the best frame for the particular cluster. Instead, I used `collections.Counter()` dictionary to track the frames and their respective counts that are associated with the lexical units. The reason is that such implementation makes integration with other FrameNet easier as we choose the best frame representation at the end of the pipeline.
+In the code below, the new lemmas in a cluster are translated into Korean, and they are parsed through the Korean FN APIs to search for relevant frames. Notice that the code below doesn't immediately select the best frame for the particular cluster. Instead, I used `collections.Counter()` dictionary to track the frames and their respective counts that are associated with the lexical units. The reason is that such implementation makes integration with other FrameNet easier as we choose the best frame representation at the end of the pipeline.
 
 ```python
 def koreanFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potential_frames_counters):
@@ -104,11 +108,11 @@ def koreanFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
 
 2. **Brasil FN frame assignment**
 
-The reason for choosing Korean FN is that the library and APIs are fully implemented and it is available on GitHub - https://github.com/machinereading/koreanframenet. 
+The reason for choosing Brasil FN is that the lexical units and frames can be retrieved from the database of Brasil FN through modification of codes of [PyDaisy](https://github.com/FrameNetBrasil/py_daisy).  
 
-In the code below, the new lexical units in a cluster and the exemplar sentences are translated into portugese, and they are parsed through the BrasilFN APIs to search for relevant frames for all the lexical units (including new or existing lexical units) in the exemplar sentences. Then, a for-loop is used to find if the new lexical units are assigned a frame from BrasilFN. 
+In the code below, the new lexical units in a cluster and their exemplary sentences are translated into Portuguese. Next, they are parsed through the BrasilFN APIs to search for relevant frames for all the lexical units (including new or existing lexical units) in the exemplary sentences. Then, a for-loop is used to find if the new lexical units are assigned a frame from BrasilFN. 
 
-Notice that the code below doesn't immediately select the best frame for the particular cluster. Instead, I used `collections.Counter()` dictionary to track the frames and their respective counts that are associated with the lexical units. The reason is that such implementation makes integration with other FrameNet easier as we choose the best frame representation at the end of the pipeline.
+Notice that the code below doesn't immediately select the best frame for the particular cluster. Instead, I used `collections.Counter()` dictionary to track the frames and their respective counts which are associated with the lexical units. The reason is that such implementation makes integration with other FrameNet easier as we choose the best frame representation at the end of the pipeline.
 
 ```python
 def BrasilFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potential_frames_counters, unseen_lus_file):
@@ -167,22 +171,6 @@ def BrasilFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
 
 ```
 
-#### Future Frame Assignment to Clusters of New Lexical Units
-
-There are a few future improvements for assigning the best frame for the cluster using multilingual framenets. 
-
-1. Use more multilingual framenets such as SwedenFN and GermanFN. Some of the framenets such as Japanese FN and Spanish FN do not have API and dataset publicly available, but their web interface for online visualization is available. In the future, when there are more APIs released for these multilingual framenets, they can be incorporated into the pipeline.
-
-2. Merging similar frames are necessary because of different naming conventions for different FrameNet. For example, "People_by_age" in KoreanFN and "frm_people_by_age" in BrasilFN are both the same frame.
-
-3. Currently, each cluster is associated to a dictionary of potential frames, mapped to their frequency of occurrences. If the occurrences of a particularly frame is more than other frames, it would be considered the best frame for the cluster. 
-
-   The reasoning is that if a cluster hypothetically represents a frame, then most of the lexical units in the cluster share the same frame; therefore, the frequency of the retrieved frame that best represent the cluster will be high. 
-
-   However, this could be problematic because first, the lexical units could be polysemous and the concept of one-frame-for-one-cluster may not be true. Second, if there's an even spread of frequency, this rule-of-thumb of choosing the frame with maximum frequency will not work.
-
-
-
 ---
 
 ## Documentation of Singularity Containers
@@ -201,8 +189,6 @@ apt-get install -y locales
 locale-gen "en_US.UTF-8"
 export LANG=en_US.UTF-8 LANGUAGE=en_US.en LC_ALL=en_US.UTF-8
 ```
-
-
 
 ---
 
@@ -230,7 +216,7 @@ The solution is to pip install by not using binary packages – `pip3 install --
 
 **UnicodeDecodeError** - This error occurs when I used `koreanframenet` library to retrieve KoreanFN frames for the korean lexical units. It is due to Python reading the lexical units in ASCII encoding, when it should be UTF-8 encoding, owing to the Singularity container's Ubuntu environment. 
 
-When I run `$ singularity exec production_multilingual4.sif locale` I received error messages that states that LC_CTYPE, LC_MESSAGES and LC_ALL cannot be set to default locale, which is supposed to be en_US.UTF-8.
+When I ran `$ singularity exec production_multilingual4.sif locale`, I received error messages that states that LC_CTYPE, LC_MESSAGES and LC_ALL cannot be set to default locale, which is supposed to be en_US.UTF-8.
 
 ```bash
 # UnicodeDecodeError
@@ -268,7 +254,7 @@ LC_IDENTIFICATION="en_US.UTF-8"
 LC_ALL=
 ```
 
-The solution is to fix the Python 3 POSIX locale database and functionality, which is running the following lines when building the Singularity container.
+The solution is to fix the Python 3 POSIX locale database and functionality, which is by running the following lines when building the Singularity container.
 
 ```bash
 apt-get install -y locales
@@ -277,13 +263,28 @@ export LANG=en_US.UTF-8 LANGUAGE=en_US.en LC_ALL=en_US.UTF-8
 ```
 
 
-
 **List index out of range error** - This error occurs when I used PyDaisy to retrieve BrasilFN frames for the new lexical units. I believe the error is due to there's none of BrasilFN frames are associated to any of the words in the exemplar sentences of the lexical units. An example of such sentence (in Portugese) is "o açougue", which is translated from NewsScape sentence "the butcher shop."
 
-There's no fix or further actions required to tackle the error because the issue involves expansion of BrasilFN. Therefore, the error is handle by try-except statement, and there's 
-
+There's no fix or further actions required to tackle the error because the issue involves expansion of BrasilFN. Therefore, the error is handle by try-except statement.
 
 
 **MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY. NEXT AVAILABLE IN  12 HOURS 28 MINUTES 55 SECONDSVISIT HTTPS://MYMEMORY.TRANSLATED.NET/DOC/USAGELIMITS.PHP TO TRANSLATE MORE** - This error occurs due to the API translation limit when I use the `translate` Python library. Free, anonymous usage is limited to 1000 words/day.
 
-There are two adjustments made. The first adjustment is made to code by removing the translation for the entire sentences in the KoreanFN frame assignment function. The translation to korean lexical units are done by direct translation, with the trade off that the translation might not be accuracy due to polysemous words. The second adjustment is to use `sleep` (for 24 hours) whenever this error is encountered.
+There are two adjustments made. 
+1. Remove the translation for the entire sentences in the KoreanFN frame assignment function. The translation to korean lexical units are done by direct translation, with the trade off that the translation might not be accuracy due to polysemous words. 
+2. use `sleep` for 24 hours whenever this error is encountered.
+
+---
+## Future Directions
+
+There are a few future improvements for assigning the best frame for the cluster using multilingual framenets. 
+
+1. Use more alignments built by multilingual FrameNet projects such as SwedenFN and GermanFN. Some of the FrameNets such as JapaneseFN and SpanishFN do not have API and dataset publicly available, but their web interface for online visualization is available. In the future, when there are more APIs released for these multilingual framenets, they can be incorporated into the pipeline.
+
+2. Merging similar frames are necessary because of different naming conventions for different FrameNet. For example, "People_by_age" in KoreanFN and "frm_people_by_age" in BrasilFN are both the same frame.
+
+3. Currently, each cluster is associated with a dictionary of potential frames, mapped to their frequency of occurrences. If the occurrences of a particularly frame are more than other frames, the frame would be considered the best frame for the cluster. 
+
+   The reason is that if a cluster hypothetically represents a frame, then most of the lexical units in the cluster share the same frame; therefore, the frequency of the retrieved frame that best represents the cluster will be high. 
+
+   However, this could be problematic because first, the lexical units could be polysemous, and the concept of one-frame-for-one-cluster may not be true. Second, if there's a completely even spread of frequency, this rule-of-thumb of choosing the frame with maximum frequency will not work.
