@@ -30,7 +30,7 @@ python3 get_newsscape.py --year 2019 --month 01 --day 02 --folder_path ./newssca
 sbatch frame_annot_tutorial.slurm
 ```
 
-**Verification for Success**
+**Verification for Deployment Success**
 
 - Check the progress output. You should at least see `Annotating: {newsscape filename}` which means the annotation is underway. You will also see `Processed: {newsscape filename}` after the file is processed after 3 - 4 days.
 ```
@@ -97,6 +97,50 @@ FRM_01|2019-01-04 03:07|Source_Program=FrameNet 1.5, Semafor 3.0-alpha4, FrameNe
 20190102033003.634|20190102033008.539|SMT_02|AMAZING|0.0|0.0|SPECTACULAR|0.25|0.25|MADE|0.0|0.0|LIKE|-0.25|0.25|I|0.0|0.0
 20190102033008.539|20190102033015.179|CC1|>> HAPPY NEW YEAR, YEARS, SO MANY POSSIBILITIES FOR OUR CELEBRITIES IN THE NEW YEAR.
 ...
+```
+
+---
+## Antonym Detection
+
+**Steps**:
+1. All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection`.
+```
+cd /home/zxy485/zxy485gallinahome/week9-12/antonym-detection
+```
+
+2. Submit the slurm script to find the antonymous lexical units in the first 250 frames. (There are five slurm scripts `task{1/2/3/4/5}.slurm` to generate all the antonymous lexical units within the same frame. I only use `task1.slurm` as the example of the tutorial.)
+```
+sbatch task1.slurm
+```
+
+**Verification for Deployment Success**
+
+- Check the progress output. `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out` shows the progress of identifying antonymous lexical units within the first 250 frames.
+```
+$ cat /home/zxy485/zxy485gallinahome/week9-12/antonym-detection/output1.out
+[Identifying antonyms in FrameNet] starts.
+Abandonment
+('abandon.v', 'leave.v', 14839, 14841)
+('abandon.v', 'forget.v', 14839, 15317)
+('leave.v', 'forget.v', 14841, 15317)
+Abounding_with
+('crowded.a', 'surfaced.a', 4771, 7001)
+('crowded.a', 'overcrowded.a', 4771, 7004)
+('crowded.a', 'full.a', 4771, 7010)
+('crowded.a', 'paved.a', 4771, 7018)
+...
+[..., ('unscrew.v', 'tie.v', 4557, 4757), ('seal.v', 'fasten.v', 4625, 4677), ('seal.v', 'tie.v', 4625, 4757), ('fasten.v', 'unfasten.v', 4677, 4711), ('fasten.v', 'tie.v', 4677, 4757), ('unfasten.v', 'tie.v', 4711, 4757)]
+[Identifying antonyms in FrameNet] takes 2324.13 minutes.
+```
+
+- Once the progress is completed, check the output pickled file `/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p`, which contains a list of pairs of antonymous lexical units within the same frame. They are in the format of `(lexical unit 1, lexical unit 2, id of lexical unit 1, id of lexical unit 2)`. 
+```
+$ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
+$ python3
+>>> import pickle
+>>> pickle.load(open('/home/zxy485/zxy485gallinahome/week9-12/antonym-detection/potential_antonyms_cosine_sim_with_dep_1.p', 'rb'))
+
+..., ('button.v', 'fasten.v', 4544, 4677), ('button.v', 'unfasten.v', 4544, 4711), ('button.v', 'tie.v', 4544, 4757), ('open.v', 'buckle.v', 4545, 4547), ('open.v', 'cap.v', 4545, 4550), ...
 ```
 
 ---
