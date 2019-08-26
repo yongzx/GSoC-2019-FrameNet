@@ -372,4 +372,6 @@ It is important to note this changes down because OpenSESAME may be updated and 
 
 ## Future Direction
 
-After checking in with Prof. Tiago, who is my mentor, it seems that the argument identification of OpenSESAME is not precise (a lot of false positives). Therefore, in this week 6 (and possibly 7), I am looking into SEMAFOR and using its argument identification part to complement OpenSESAME's weakness. 
+After checking in with Prof. Tiago, who is my mentor, it seems that the argument identification of OpenSESAME is not precise (a lot of false positives). Throughout the GSoC term, I attempted to explore the options of SEMAFOR compatible with FN 1.7 on the ![semafor_Framenet_v1.7 repository](https://github.com/AlenUbuntu/semafor_Framenet_v1.7) but the model file for the MaltParser and the model files for SEMAFOR which were trained on the FrameNet 1.7 datasets were missing. 
+
+I have sent multiple emails over the GSoC term to the person-of-contact listed in the repository but I haven't received any reply. Furthermore, the repository does not allow me to open issues. 
