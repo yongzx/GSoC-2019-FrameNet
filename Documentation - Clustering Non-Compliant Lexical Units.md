@@ -137,19 +137,6 @@ def visualize(X, LUs, save_fig_name, cluster_centers_indices=None, labels=None):
     plt.show()
 ```
 
-
-
-**Visualizations**
-
-The following figure shows the LUs' embeddings represented in a 3D space.
-
-![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_LU_vectors.png)
-
-The following figure shows the clustered LUs' embeddings represented in a 3D space.
-
-![viz_clustered_LUs](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_clustered_LUs.png)
-
-
 2. **Affinity Propagation**
 
 Affinity Propagation is a clustering algorithm that does not require the number of clusters to be determined beforehand. It is therefore suitable for the task of clustering unseen lexical units as we do not know how many frames (clusters) would these new lexical units group into. 
@@ -161,6 +148,19 @@ def affinity_propagation_cluster(X):
     labels = af.labels_
     return cluster_centers_indices, labels
 ```
+
+
+**Visualizations**
+
+The following figure shows a few LUs' embeddings represented in a 3D space for demonstration purpose.
+
+![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_LU_vectors.png)
+
+The following figure shows a few  clustered LUs' embeddings represented in a 3D space for demonstration purpose.
+
+![viz_clustered_LUs](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/viz_clustered_LUs.png)
+
+
 
 ## Analysis of Clustering Results
 
