@@ -30,13 +30,11 @@ Second, SEMAFOR could not be implemented because `pyfn` was not working and the 
 #### Distributional Semantics Approach - BERT Embeddings
 Before generating frame embeddings, I read through 10 papers to understand the recent practices with creating frame embeddings and summarized their methodologies in a report. I decided to replace the initial proposed DSSM model with BERT model to generate embeddings for lexical units and frames because BERT use attention models to create sentence embeddings, which better capture the semantic concepts of a sentence.
 
-There are two additional changes to my proposed methods. First, I included a unsupervised clustering Affinity Propagation model to cluster the non-compliant new lexical units. Second, I assigned frame names to the clusters using alignments built by multilingual FrameNet projects, namely KoreanFN and BrasilFN. 
+The first application of the embeddings is identifying antonyms within FrameNet using a decision tree model trained with antonyms from WordNet synsets. There are two improvements made to increase the accuracy of the machine learning model. First, antonymous pairs in the training dataset share the same POS. Second, include the dependency level and relations (in integer representation) as the attribute in addition to the POS and cosine similarity of the antonym pair.
 
-The figure below shows the final pipeline for expanding FrameNet 1.7 using the lexical units in NewsScape dataset.
+The second application of the embeddings is identifying new lexical units from UCLA NewsScape dataset that can be added into FrameNet 1.7. The figure below shows the final pipeline for expanding FrameNet 1.7 using the lexical units in NewsScape dataset. There are two additional changes to my proposed methods. First, I included a unsupervised clustering Affinity Propagation model to cluster the non-compliant new lexical units. Second, I assigned frame names to the clusters using alignments built by multilingual FrameNet projects, namely KoreanFN and BrasilFN. 
 
 FIGURE FIGURE FIGURE
-
-
 
 
 **Report of Frame Embeddings Generation** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Background%20Research%20-%20Frame%20Embeddings.pdf
