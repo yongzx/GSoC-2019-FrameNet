@@ -314,7 +314,7 @@ There are a few future improvements for assigning the best frame for the cluster
 
 1. Use more alignments built by multilingual FrameNet projects such as SwedenFN and GermanFN. Some of the FrameNets such as JapaneseFN and SpanishFN do not have API and dataset publicly available, but their web interface for online visualization is available. In the future, when there are more APIs released for these multilingual framenets, they can be incorporated into the pipeline.
 
-2. Merging similar frames are necessary because of different naming conventions for different FrameNet. For example, "People_by_age" in KoreanFN and "frm_people_by_age" in BrasilFN are both the same frame.
+2. Merging similar frames are necessary because of different naming conventions for different FrameNet. For example, "People_by_age" in KoreanFN and "frm_people_by_age" in BrasilFN are both the same frame. This can be tricky for new frames non-existent in Berkeley FN1.7 because of the crosslinguistic similarities and differences in framing.
 
 3. Currently, each cluster is associated with a dictionary of potential frames, mapped to their frequency of occurrences. If the occurrences of a particularly frame are more than other frames, the frame would be considered the best frame for the cluster. 
 
