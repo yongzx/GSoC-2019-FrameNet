@@ -298,7 +298,7 @@ export LANG=en_US.UTF-8 LANGUAGE=en_US.en LC_ALL=en_US.UTF-8
 
 **List index out of range error** - This error occurs when I used PyDaisy to retrieve BrasilFN frames for the new lexical units. I believe the error is due to there's none of BrasilFN frames are associated to any of the words in the exemplar sentences of the lexical units. An example of such sentence (in Portugese) is "o açougue", which is translated from NewsScape sentence "the butcher shop."
 
-There's no fix or further actions required to tackle the error because the issue involves expansion of BrasilFN. Therefore, the error is handle by try-except statement.
+There's no fix or further actions required to tackle the error because the issue involves expansion of BrasilFN. Therefore, the error is handled by try-except statement.
 
 
 **MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY. NEXT AVAILABLE IN  12 HOURS 28 MINUTES 55 SECONDSVISIT HTTPS://MYMEMORY.TRANSLATED.NET/DOC/USAGELIMITS.PHP TO TRANSLATE MORE** - This error occurs due to the API translation limit when I use the `translate` Python library. Free, anonymous usage is limited to 1000 words/day.
