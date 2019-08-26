@@ -5,7 +5,7 @@
 - Newcomers who take over this project
 
 **Important Notes for Red Hen Mentors**:
-1. Do not delete files or folders because some tasks are sequential and may take more than a week for completion. Therefore, if the important files which are needed for the next step are deleted, you will have to wait for the task to be completed before moving to the next step.
+1. Do not delete files or folders because some tasks are sequential and may take more than a week for completion. Therefore, if the essential files needed for the next step are deleted, you will have to wait for the completion of tasks before moving to the next step. It might take more than a week for the full verification of the pipeline. 
 The best way to overcome this issue is to `cat [filename].out` to verify the progress. 
 2. For GSoC evaluation of my deployment, you may have to `scancel` the slurm task in the queue if necessary to release the compute nodes resources, especially when you `squeue` and find that the slurm task has not started running.
 
@@ -175,7 +175,7 @@ $ sbatch task-cluster-LUs-AP.slurm
 $ sbatch task-multilingual-frame-assignment.slurm
 ```
 
-**IMPORTANT NOTE**: Supposedly step 5 depends on output files from step 4, and step 4 depends on the output files from step 3, but the entire linear process would take more than a week for completion. Therefore, step 3, 4 and 5 can be run in parallel using the output files which have been generated in the past.
+**IMPORTANT NOTE**: Supposedly step 5 depends on output files from step 4, and step 4 depends on the output files from step 3, but the entire linear process would take more than a week for completion. Therefore, step 3, 4, and 5 can be run in parallel using the output files which have been generated in the past.
 
 **Outputs**
 
