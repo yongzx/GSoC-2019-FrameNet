@@ -17,3 +17,31 @@ Second, SEMAFOR could not be implemented because `pyfn` was not working and the 
 
 
 ### Second Objective
+#### Knowledge-driven approach - BabelNet
+
+
+#### Distributional Semantics Approach - BERT Embeddings
+Before generating frame embeddings, I read through 10 papers to understand the recent practices with creating frame embeddings and summarized their methodologies in a report. I decided to replace the initial proposed DSSM model with BERT model to generate embeddings for lexical units and frames because BERT use attention models to create sentence embeddings, which better capture the semantic concepts of a sentence.
+
+There are two additional changes to my proposed methods. First, I included a unsupervised clustering Affinity Propagation model to cluster the non-compliant new lexical units. Second, I assigned frame names to the clusters using alignments built by multilingual FrameNet projects, namely KoreanFN and BrasilFN. 
+
+The figure below shows the final pipeline for expanding FrameNet 1.7 using the lexical units in NewsScape dataset.
+
+FIGURE FIGURE FIGURE
+
+
+
+
+**Report of Frame Embeddings Generation** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Background%20Research%20-%20Frame%20Embeddings.pdf
+
+**Documentation of Generating Embeddings for FrameNet Lexical Units** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Generating%20Embeddings%20for%20FrameNet%20Lexical%20Units.md
+
+**Documentation of Generating Embeddings for WordNet Synsets** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Generating%20Embeddings%20for%20WordNet%20Synsets.md
+
+**Documentation of Antonym Detection** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Antonym%20Detection.md
+
+**Documentation of Expanding FrameNet with NewsScape and Embedding** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Expanding%20FrameNet%20with%20NewsScape%20and%20Embedding.md
+
+**Documentation of Clustering Non-Compliant Lexical Units** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Clustering%20Non-Compliant%20Lexical%20Units.md
+
+**Documentation of Frame Assignment using Multilingual FN** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20Frame%20Assignment%20using%20Multilingual%20FN.md
