@@ -1,5 +1,7 @@
 # Frame Assignment using Multilingual FN
 
+This documentation describes the process of assigning frames from KoreanFN and BrasilFN to the clusters of non-compliant lexical units.
+
 - [Tutorial](#tutorial)
 - [Implementation Details](#implementation-details)
   - [Documentation of Singularity Containers](#documentation-of-singularity-containers)
@@ -108,9 +110,9 @@ def koreanFN_frame_assignment(clusters_to_LU_tensor_tuples, clusters_to_potentia
 
 
 
-2. **Brasil FN frame assignment**
+2. **BrasilFN frame assignment**
 
-The reason for choosing Brasil FN is that the lexical units and frames can be retrieved from the database of Brasil FN through modification of codes of [PyDaisy](https://github.com/FrameNetBrasil/py_daisy).  
+The reason for choosing BrasilFN is that the lexical units and frames can be retrieved from the database of BrasilFN through modification of codes of [PyDaisy](https://github.com/FrameNetBrasil/py_daisy).  
 
 In the code below, the new lexical units in a cluster and their exemplary sentences are translated into Portuguese. Next, they are parsed through the BrasilFN APIs to search for relevant frames for all the lexical units (including new or existing lexical units) in the exemplary sentences. Then, a for-loop is used to find if the new lexical units are assigned a frame from BrasilFN. 
 
