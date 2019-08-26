@@ -64,7 +64,7 @@ POS tagging via NLP4J...
 ...
 ```
 
-- See the FRM_02 labels in the processed .seg NewsScape file. The following is the sample result of /home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/2019-01-02_2200_US_FOX-News_The_Five.seg.
+- See the FRM_02 labels in the processed .seg NewsScape file. The following is the sample result of `/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/newsscape/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/2019-01-02_2200_US_FOX-News_The_Five.seg`.
 ```
 TOP|20190102033002|2019-01-02_0330_US_KNBC_Access
 COL|Communication Studies Archive, UCLA
