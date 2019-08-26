@@ -33,7 +33,7 @@ Afterward, run the following slurm script (`/home/zxy485/zxy485gallinahome/week9
 #SBATCH -N 1
 #SBATCH -c 1
 #SBATCH --mem-per-cpu=5G
-#SBATCH --time=30-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --output=my.stdout
 #SBATCH --error=my.err
 #SBATCH --job-name="expanding-fn"
