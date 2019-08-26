@@ -2,9 +2,17 @@
 
 This documentation details the process of clustering the lexical units which are non-existent in Berkeley FrameNet 1.7 and which do not pass through either the POS or Core FEs valence pattern checking.
 
+**Table of Content**
+- [Tutorial](#tutorial)
+- [Implementation Details](#implementation-details)
+- [Analysis of Clustering Results](#analysis-of-clustering-results)
+- [Documentation of Singularity Containers](#documentation-of-singularity-containers)
+
+---
+## Tutorial
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `cluster_LUs_AP.py`.
 
-The `sbatch` script used to generate the t-SNE visualization and the clustering of the lexical units which are filtered out by the POS and CoreFEs filters:
+The slurm script used to generate the t-SNE visualization and the clustering of the lexical units which are filtered out by the POS and CoreFEs filters is `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/task-cluster-LUs-AP.slurm`.
 
 ```bash
 #!/bin/bash
@@ -29,6 +37,8 @@ The argument `--folder_models` specifies the folder to store the file (`lu_clust
 
 The argument `--folder_images` specifies the folder to store the visualization image of the clusters. Remember that it must use SINGULARITY_BINDPATH.
 
+**Outputs**
+
 The final outputs are:
 
 - a tuple of (unmatched_LUs_to_tensors, X, LUs, cluster_centers_indices, labels): `{folder_models}/lu_cluster_affinity_propagation.pkl`
@@ -38,8 +48,42 @@ The final outputs are:
   - *cluster_centers_indices*: indices of cluster centers
   - *labels*: cluster label of each LUs
 
-- t-SNE Visualization of lexical units: `{folder_images}/viz_LU_vectors.png`
-- t-SNE Visualization of lexical units which are clustered: `{folder_images}/viz_clustered_LUs.png`
+The following example shows the list pickled in `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/lu_cluster_affinity_propagation.pkl`
+```
+$ unmatched_LUs_to_tensors, X, LUs, cluster_centers_indices, labels = pickle.load(open("/mnt/data/0102/lu_cluster_affinity_propagation.pkl", 'rb'))
+
+$ unmatched_LUs_to_tensors
+'sprinkler.n': tensor([-0.0639, -0.7937,  0.5725,  ..., -0.0290,  0.6760,  0.3853]), 'curb.n': tensor([ 0.6414, -0.0556, -0.1243,  ...,  0.0016, -0.5924, -0.8106]), 'lingering.n': tensor([ 0.9284, -0.2239,  0.4346,  ...,  0.8315, -0.3735,  0.2848]), 'motor.n': tensor([ 0.4993, -0.1982,  0.7537,  ...,  0.1615, -0.2226, -0.6524])
+
+$ X
+[[ 0.8884867  -0.10377462  0.9043543  ... -0.62185156  0.26520827
+  -0.01701835]
+ [ 0.5532113  -0.7138817  -0.3777894  ... -0.2673508  -0.35105324
+   0.5249945 ]
+   ...
+ [ -0.48098472  0.02973192 -0.16719978 ...  0.19730632 -0.05893578
+   -0.25339624]]
+   
+$ LUs
+['trump.n' 'romney.n' 'rhino.n' ... 'lingering.n' 'motor.n' 'kenneth.n']
+
+$ cluster_centers_indices
+[  11   13   25   59   60   67   69   71   82   85   92   95  102  124
+  142  150  159  172  177  189  192  196  198  207  210  223  225  233
+  249  269  272  274  294  303  307  309  338  339  343  347  364  368
+  393  398  425  432  465  470  475  476  499  503  528  537  544  556
+  598  607  617  638  645  717  722  723  744  774  778  816  919  975
+ 1016 1051 1079 1104 1139 1169 1223 1257 1291 1296 1319 1403 1417 1467
+ 1487 1529 1549 1608 1756 1809 1879]
+ 
+$ labels
+[54 54 77 ... 32  3 56]
+```
+
+- t-SNE Visualization of lexical units: `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_LU_vectors.png`, which is the following:
+
+- t-SNE Visualization of lexical units which are clustered: `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_clustered_LUs.png`, which is the following:
+
 
 ---
 
@@ -114,7 +158,7 @@ def affinity_propagation_cluster(X):
     return cluster_centers_indices, labels
 ```
 
-**Analysis of Clustering Results**
+## Analysis of Clustering Results
 
 From the above figure of clustered LUs' embeddings, we notice that if we use the default preference parameter of `AffinityPropagation`, which is the median of the input similarities, the clustering is not accurate despite promising.
 
