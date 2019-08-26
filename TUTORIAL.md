@@ -205,8 +205,8 @@ Sentence: PASSING THE TORCH FROM 2018 TO 2019.
 ...
 ```
 
-- After the process is completed, there would be three pickled files.
-  - `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/matched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores the new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and which do not exist in Berkeley FrameNet 1.7.
+After the process is completed, there would be three pickled files.
+- `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/matched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores the new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and which do not exist in Berkeley FrameNet 1.7.
 ```
 $ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 $ python3
@@ -216,7 +216,7 @@ $ python3
 {..., 'season.n': 16012, 'kit.n': 4221, 'insurance.n': 16121, 'penn.n': 16121, 'trebek.n': 4305, 'quarterback.n': 16012, 'washington.n': 10585, ...}
 ```
 
-  - `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_pos_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the POS filter.
+- `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_pos_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the POS filter.
 ```
 $ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 $ python3
@@ -226,7 +226,7 @@ $ python3
 {'crying.n': tensor([-0.3601,  0.9405,  0.4090,  ...,  0.7458,  0.1140, -0.6848]), 'nothing.n': tensor([ 0.0093, -0.0860, -0.0291,  ..., -0.1037, -0.0613, -0.6192]), 'dark.n': tensor([ 0.2622,  0.5236,  0.6394,  ...,  0.3478,  1.0145, -0.3825]), 'idling.n': tensor([-0.0031, -0.2561,  0.5420,  ..., -1.0558, -0.0892, -0.3096]), 'carter.n': tensor([-0.2083, -0.1723, -0.4687,  ..., -0.1857,  0.1192, -1.0462]), 'indefendant.n': tensor([ 0.1130, -0.0869,  0.1047,  ..., -0.5166, -0.1262, -0.1070]), 'context.n': tensor([-0.5003,  0.2394, -0.1679,  ...,  0.4758, -0.0024,  0.6117]), 'seed.n': tensor([ 0.4037, -0.0945, -0.2414,  ...,  0.0398, -0.2197, -0.2701]), 'qualifying.n': tensor([ 0.2838,  0.2489,  0.4820,  ..., -0.4504, -0.2197, -0.4507]), 'warm-up.n': tensor([-0.7397, -0.7589,  0.2845,  ...,  0.0975,  0.2958, -0.0367])}
 ```
 
-  - `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the Core Frame Elements filter.
+- `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the Core Frame Elements filter.
 ```
 $ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 $ python3
@@ -235,3 +235,60 @@ $ python3
 
 { ..., 'lifetime.n': tensor([ 1.6898, -0.5895,  1.2588,  ...,  0.0404,  0.3949, -0.8979]), 'guarantee.n': tensor([ 0.3999, -0.6460,  0.2950,  ..., -0.3751,  0.2995, -0.0348]), 'coaching.n': tensor([-0.1619,  0.1011, -0.0326,  ..., -1.0178, -0.2577,  1.1803]), ...}
 ```
+
+
+*Step 4*
+- Check the progress output
+```
+$ cat /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/clutser_LUs_AP_output.out
+
+[Load LUs and their tensors] starts.
+[Load LUs and their tensors] takes 0.01 minutes.
+[Visualize LUs' vectors] starts.
+[Visualize LUs' vectors] takes 5.27 minutes.
+[Cluster with Affinity Propagation] starts.
+[Cluster with Affinity Propagation] takes 0.07 minutes.
+[Visualize Clustered LUs' vectors] starts.
+[Visualize Clustered LUs' vectors] takes 5.26 minutes.
+```
+
+- After the process has completed, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/lu_cluster_affinity_propagation.pkl` stores a tuple of (unmatched_LUs_to_tensors, X, LUs, cluster_centers_indices, labels).
+```
+$ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
+$ python3
+>>> import pickle
+>>> unmatched_LUs_to_tensors, X, LUs, cluster_centers_indices, labels = pickle.load(open("/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/lu_cluster_affinity_propagation.pkl", 'rb'))
+
+>>> unmatched_LUs_to_tensors
+'sprinkler.n': tensor([-0.0639, -0.7937,  0.5725,  ..., -0.0290,  0.6760,  0.3853]), 'curb.n': tensor([ 0.6414, -0.0556, -0.1243,  ...,  0.0016, -0.5924, -0.8106]), 'lingering.n': tensor([ 0.9284, -0.2239,  0.4346,  ...,  0.8315, -0.3735,  0.2848]), 'motor.n': tensor([ 0.4993, -0.1982,  0.7537,  ...,  0.1615, -0.2226, -0.6524])
+
+>>> X
+[[ 0.8884867  -0.10377462  0.9043543  ... -0.62185156  0.26520827
+  -0.01701835]
+ [ 0.5532113  -0.7138817  -0.3777894  ... -0.2673508  -0.35105324
+   0.5249945 ]
+   ...
+ [ -0.48098472  0.02973192 -0.16719978 ...  0.19730632 -0.05893578
+   -0.25339624]]
+   
+>>> LUs
+['trump.n' 'romney.n' 'rhino.n' ... 'lingering.n' 'motor.n' 'kenneth.n']
+
+>>> cluster_centers_indices
+[  11   13   25   59   60   67   69   71   82   85   92   95  102  124
+  142  150  159  172  177  189  192  196  198  207  210  223  225  233
+  249  269  272  274  294  303  307  309  338  339  343  347  364  368
+  393  398  425  432  465  470  475  476  499  503  528  537  544  556
+  598  607  617  638  645  717  722  723  744  774  778  816  919  975
+ 1016 1051 1079 1104 1139 1169 1223 1257 1291 1296 1319 1403 1417 1467
+ 1487 1529 1549 1608 1756 1809 1879]
+ 
+>>> labels
+[54 54 77 ... 32  3 56]
+```
+
+- `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_LU_vectors.png` is the t-SNE Visualization of lexical units.
+![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_LU_vectors.png)
+
+- `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/viz_clustered_LUs.png` is the t-SNE Visualization of lexical units which are clustered.
+![viz_LU_vectors](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/tutorial_viz_clustered_LUs.png)
