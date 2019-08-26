@@ -1,8 +1,32 @@
-# Documentation - Expanding FrameNet with NewsScape and Embedding
+# Expanding FrameNet with NewsScape and Embedding
+
+This documentation elaborates on the expanding Berkeley FrameNet 1.7 using the lexical units from UCLA NewsScape dataset. 
+
+**Table of Content**
+- [Tutorial](#tutorial)
+- [How It Works](#how-it-works)
+- [Implementation Details](#implementation-details)
+  - [Documentation of Creating Singularity Containers](#documentation-of-creating-singularity-containers)
+  - [Bugs and Challenges](#bugs-and-challenges)
+  
+---
+## Tutorial
 
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs`. 
 
-The `sbatch` script used to identify new lexical units from NewsScape dataset and create BERT embeddings for them is as followed:
+First, copy the NewsScape `.seg` file or the folder containing all the `.seg` files into any folder within `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs`. In the following commands, I demonstrated:
+1. copying the file `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` into the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data`.
+2. copying all the `.seg` files from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/` into the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102`.
+
+```bash
+# copy a single file
+$ cp /mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data
+
+# copy all .seg files from a single date
+$ cp /mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-02/*.seg /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102
+```
+
+Afterward, run the following slurm script (`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/task-newsscape.slurm`) to identify new lexical units from NewsScape dataset and create BERT embeddings for them.
 
 ```bash
 #!/bin/bash
@@ -18,20 +42,46 @@ module load gcc/6.3.0 openmpi/2.0.1 python/3.6.6
 module load singularity
 export SINGULARITY_BINDPATH="/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs:/mnt"
 
-# singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data' --seg_file='2019-01-01_2300_US_WEWS_News_5_at_6pm.seg' > './data/output.out'
+singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data' --seg_file='2019-01-01_2300_US_WEWS_News_5_at_6pm.seg' > './data/output.out'
 
-singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data/0102'
+singularity exec production.sif python3 -u /mnt/create_embeddings.py --folder='/mnt/data/0102' > './data/0102/output.out'
 ```
 
 The argument `--folder` specifies the folder of the NewsScape seg file to be processed and where all the output files will be stored. Remember that it must use SINGULARITY_BINDPATH.
 
 The argument `--seg_file` specifies the file name of the NewsScape seg file to be processed. This is optional – if the argument is not specified, the script will identify all new lexical units and generate BERT embeddings for all the NewsScape seg files in the folder specified in `--folder` argument.
 
-The final outputs are:
+**Outputs**
 
-- Filtered new lexical units:  `{folder}/matched_coreFEs_lus-{seg_file}.p`
-- New lexical units that do not pass the POS filter: `{folder}/unmatched_pos_lus-{seg_file}.p`
-- New lexical units that do not pass the Core FEs filter: `{folder}/unmatched_coreFEs_lus-{seg_file}.p`
+`/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/output.out` and `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/output.out` keep track of the progress. A sample output of `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/output.out` appears as the following:
+```
+[Unseen LUs_Closest Match] starts.
+Sentence: MURDER SCENE.
+2019-08-25 23:39:14,948 loading file /home/zxy485/.flair/models/en-pos-ontonotes-v0.2.pt
+Sentence: PLUS, WARNINGS GOING UNHEARD AND LIVES LOST.
+2019-08-25 23:39:17,010 loading file /home/zxy485/.flair/models/en-pos-ontonotes-v0.2.pt
+Sentence: A COUPLE KILLED.
+2019-08-25 23:39:18,151 loading file /home/zxy485/.flair/models/en-pos-ontonotes-v0.2.pt
+Sentence: ANOTHER FAMILY IN THE HOSPITAL AT THE HANDS OF ACCUSED DRUNK DRIVERS.
+2019-08-25 23:39:18,992 loading file /home/zxy485/.flair/models/en-pos-ontonotes-v0.2.pt
+Sentence: PASSING THE TORCH FROM 2018 TO 2019.
+...
+
+[Match Valence (Core FEs)] starts.
+>>>>>>>>>>>>>>>> Lexical Unit: torch.n
+>>>>>>>>>>>>>>>> Lexical Unit: ohio.n
+>>>>>>>>>>>>>>>> Lexical Unit: neighborhood.n
+>>>>>>>>>>>>>>>> Lexical Unit: clock.n
+>>>>>>>>>>>>>>>> Lexical Unit: listing.n
+...
+```
+
+There are three generated pickled files. 
+1. `{folder}/matched_coreFEs_lus-{seg_file}.p`. For example, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/matched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores the new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and which do not exist in Berkeley FrameNet 1.7.
+
+2. `{folder}/unmatched_pos_lus-{seg_file}.p`. For example, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_pos_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the POS filter.
+
+3. `{folder}/unmatched_coreFEs_lus-{seg_file}.p`. For example, `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/unmatched_coreFEs_lus-2019-01-01_2300_US_WEWS_News_5_at_6pm.seg.p` stores new lexical units which are extracted from `/mnt/rds/redhen/gallina/tv/2019/2019-01/2019-01-01/2019-01-01_2300_US_WEWS_News_5_at_6pm.seg` and do not pass the Core Frame Elements filter.
 
 ---
 
@@ -39,9 +89,9 @@ The final outputs are:
 
 ### 1. Generate BERT embeddings for Lexical Units
 
-Lexical units are the combination of lemmas and their part-of-speech tags. For example, “run.v”, “long.v”, “long.adj”, etc. They are words that evoke a semantic frame (i.e., a description of a type of event, relation, or entity and the participants in it.) from FrameNet 1.7.
+Lexical units are the combination of lemmas and their part-of-speech tags. For example, "run.v", "long.v", "long.adj", etc. They are words that evoke a semantic frame (i.e., a description of a type of event, relation, or entity and the participants in it.) from FrameNet 1.7.
 
-The BERT embedding of a lexical unit is obtained by averaging the BERT embeddings of the lexical unit appearing in the annotated sentences in FrameNet. If there’s no actual text in FrameNet that features the lexical unit, which means that there’s no sentence examples of the lexical unit, its embedding will be a zero tensor.
+The BERT embedding of a lexical unit is obtained by averaging the BERT embeddings of the lexical unit appearing in the annotated sentences in FrameNet. If there are no sentence examples of the lexical unit, the embedding of the lexical unit will be a zero tensor.
 
 ### 2. Assigning New Lexical Units to Corresponding Frames
 
@@ -51,19 +101,19 @@ The embedding of the new lexical unit is compared with the embeddings of existin
 
 ### 3. Filtering Potentially New Lexical Units
 
-These unseen lexical units which are assigned to a frame are filtered for validating whether the frame fits them. 
+These unseen lexical units, which are assigned to a frame, are filtered for validating whether the frame fits them. 
 
 The first filter checks whether any of the lexical units within the frame shares the same POS as the new unseen lexical unit.
 
-The second filter checks whether the exemplar sentence of the unseen lexical units contains the core frame elements of the assigned frame.
+The second filter checks whether the exemplary sentence of the unseen lexical units contains the core frame elements of the assigned frame.
 
 ---
 
-## Overall Implementation Details (`create_embeddings.py`)
+## Implementation Details (`create_embeddings.py`)
 
 ### 1. Generate BERT embeddings for Lexical Units
 
-Output: A pickled file `lus_fn1.7_bert.p` that saves the mapping of the IDs of lexical units to their BERT embeddings 
+**Output**: A pickled file `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/lus_fn1.7_bert.p` that saves the mapping of the IDs of lexical units to their BERT embeddings 
 
 ```python
 def create_fn_LU_embeddings(embedding, save_file):
@@ -94,7 +144,7 @@ def create_fn_LU_embeddings(embedding, save_file):
 
 ### 2. Assigning New Lexical Units to Corresponding Frames
 
-Output: A pickled file `closest_lus-{seg_file}.p` that stores the mapping of unseen_LU to the ID of closest lexical unis in FN1.7
+**Output**: A pickled file `{folder}/closest_lus-{seg_file}.p` that stores the mapping of unseen_LU to the ID of closest lexical units in FrameNet.
 
 - Function `get_unseen_LUs`: returns a hash table `unseen_LUs` that maps new lexical units to a list of sentences where the lexical units occur. The sentences are necessary for generating BERT embeddings for the new lexical units. 
 - Function `create_unseen_LU_embedding`: stores the mapping the hash table that maps new lexical units to their embeddings in a pickled file
@@ -184,10 +234,10 @@ def get_closest_LUs(unseen_LU_embeddings_file, seen_LU_embeddings, res_file):
 
 ### 3A. Filtering Potentially New Lexical Units - POS Filter
 
-Output: Two pickled files (`matched_pos_lus-{seg_file}.p` and `unmatched_pos_lus-{seg_file}.p`) where one file stores the new lexical units whose POS matches that of one of the lexical units in the assigned frame, and the other stores the lexical units whose POS does not.
+**Output**: Two pickled files (`{folder}/matched_pos_lus-{seg_file}.p` and `{folder}/unmatched_pos_lus-{seg_file}.p`) where former file stores the new lexical units whose POS matches that of one of the lexical units in the assigned frame, and the latter stores the lexical units whose POS does not.
 
-- The first file (POS matches) stores the mapping of the new lexical units to the ID of closest lexical unis in FN1.7. This file will be parsed into the second filter.
-- The second file (POS does not match) stores the mapping of the new lexical units to its embedding
+- The first file (POS matches) stores the mapping of the new lexical units to the IDs of closest lexical unis in FN1.7. This file will be parsed into the second filter.
+- The second file (POS does not match) stores the mapping of the new lexical units to their embeddings.
 
 ```python
 def check_POS_match(closest_lus_filename,
@@ -222,9 +272,9 @@ def check_POS_match(closest_lus_filename,
 
 ### 3B. Filtering Potentially New Lexical Units - Core FEs Filter
 
-This filter receives the pickled file where the new lexical units match the POS of the lexical units in the assigned frame from the POS filter. 
+**Output**: Two pickled files (`{folder}/matched_coreFEs_lus-{seg_file}.p` and `{folder}/unmatched_coreFEs_lus-{seg_file}.p`) where one file stores the lexical units whose exemplar sentences contain core FEs of the assigned frame, and the other stores the lexical units whose exemplary sentences do not contain.
 
-Output: Two pickled files (`matched_coreFEs_lus-{seg_file}.p` and `unmatched_coreFEs_lus-{seg_file}.p`) where one file stores the lexical units whose exemplar sentences contain core FEs of the assigned frame, and the other stores the lexical units whose exemplar sentences do not contain.
+This filter uses the pickled file from 3A where the new lexical units match the POS of the lexical units in the assigned frame from the POS filter. 
 
 ```python
 def check_core_FE(unseen_LUs_sentence_filename,
@@ -310,8 +360,6 @@ def check_core_FE(unseen_LUs_sentence_filename,
     pickle.dump(match_LU_to_ID, open(matched_lus_filename, 'wb'))
 ```
 
-
-
 ---
 
 ## Documentation of Creating Singularity Containers
@@ -348,13 +396,9 @@ end
 
 ---
 
-## Documentation of Bugs / Challenges Encountered in Assigning New Lexical Units to Corresponding Frames
+## Bugs and Challenges
 
 **POS-tagging for the unseen lexical units** - All the characters in NewsScape closed captions text are capitalized. This creates challenge for POS-tagging. I attempted UDPipe, NLTK and NLP4J; all of them gave subpar results such as classifying all capitalized nouns as NNP. `flair` library worked best in POS-tagging the sentence despite all characters are capitalized.
-
----
-
-## Documentation of Bugs / Challenges Encountered in Checking Core Frame Elements
 
 **Empty `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/open-sesame-local/logs/fn1.7-pretrained-targetid/predicted-target.conll`** - If this file is empty, we cannot insert predicted frames for the unseen lexical units and check for whether the core FE exists in the sentence. 
 
