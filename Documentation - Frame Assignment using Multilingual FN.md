@@ -2,7 +2,9 @@
 
 - [Tutorial](#tutorial)
 - [Implementation Details](#implementation-details)
-- []
+  - [Documentation of Singularity Containers](#documentation-of-singularity-containers)
+  - [Bugs and Challenges](#bugs-and-challenges)
+- [Future Directions](#future-directions)
 
 ## Tutorial
 All the necessary files reside in the folder `/home/zxy485/zxy485gallinahome/week9-12/unseen_LUs` and the file that is run is `multilingual_frame_assignment.py`.
@@ -192,7 +194,7 @@ export LANG=en_US.UTF-8 LANGUAGE=en_US.en LC_ALL=en_US.UTF-8
 
 ---
 
-## Documentation of Bugs / Challenges
+## Bugs and Challenges
 **ImportError related to libmysqlclient** - This error occurs when I used PyDaisy to retrieve BrasilFN frames from the MySQL server. It is due to the incorrect installation of the library `mysqlclient`. In fact, it is a common error when we directly `pip install mysqlclient` in the container.
 
 ```bash
