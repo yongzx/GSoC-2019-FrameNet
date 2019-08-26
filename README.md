@@ -34,7 +34,7 @@ The first application of the embeddings is identifying antonyms within FrameNet 
 
 The second application of the embeddings is identifying new lexical units from UCLA NewsScape dataset that can be added into FrameNet 1.7. The figure below shows the final pipeline for expanding FrameNet 1.7 using the lexical units in NewsScape dataset. There are two additional changes to my proposed methods. First, I included a unsupervised clustering Affinity Propagation model to cluster the non-compliant new lexical units. Second, I assigned frame names to the clusters using alignments built by multilingual FrameNet projects, namely KoreanFN and BrasilFN. 
 
-![Pipeline of Expanding FrameNet with NewsScape](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/Pipeline%20of%20Expanding%20FrameNet%20with%20NewsScape.png)
+![Pipeline of Expanding FrameNet with NewsScape](https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/images/Final%20Pipeline%20of%20Expanding%20FrameNet%20with%20NewsScape.png)
 
 
 **Report of Frame Embeddings Generation** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Background%20Research%20-%20Frame%20Embeddings.pdf
