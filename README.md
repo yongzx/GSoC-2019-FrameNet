@@ -1,5 +1,12 @@
 # GSoC' 19
 
+**Table of Content**
+- [Summary of Project](#summary-of-project)
+  - [First Objective](#first-objective)
+  - [Second Objective](#second-objective)
+- [Tutorial](#tutorial)
+- [Weekly Progress](#weekly-progress)
+
 ## Summary of Project
 The project initially sets out to achieve two goals – update the annotation system for Red Hen’s NewsScape dataset to FrameNet 1.7 and expand FrameNet 1.7 through a knowledge-driven approach and a distributional semantics approach. 
 
