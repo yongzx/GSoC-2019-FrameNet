@@ -31,7 +31,7 @@ A slurm script (`/home/zxy485/zxy485gallinahome/week1-4/final-open-sesame/frame_
 #SBATCH -N 1
 #SBATCH -c 1
 #SBATCH --mem-per-cpu=5G
-#SBATCH --time=3-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --output=frame-annot-tutorial.stdout
 #SBATCH --error=frame-annot-tutorial.err
 #SBATCH --job-name="frame annotation tutorial"
