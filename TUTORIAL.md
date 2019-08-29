@@ -182,7 +182,7 @@ $ sbatch task-multilingual-frame-assignment.slurm
 *Step 3*
 - Check the progress output
 ```
-$ cat /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/output.out
+$ cat /home/zxy485/zxy485gallinahome/week9-12/unseen_LUs/data/0102/output.out
 
 [Unseen LUs_Closest Match] starts.
 Sentence: MURDER SCENE.
