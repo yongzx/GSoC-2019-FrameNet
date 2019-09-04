@@ -16,7 +16,7 @@ I achieved the first objective by updating the annotation system for Red Hen's N
 
 First, I did not use `pyfn` library as suggested in my proposal because the library is not intended for annotating sentences outside of FrameNet. Besides, I could not resolve the bugs when deploying the library despite opening issues and working with the library's creator through GitHub. I changed to use PyDaisy and OpenSesame standalone library. PyDaisy is the alternative to SimpleFrameID for frame identification, and the library OpenSesame is also capable of identifying target words and frames.
 
-Second, SEMAFOR could not be implemented because `pyfn` was not functional, and the pre-trained models (MaltParser trained on Penn Treebank and SEMAFOR trained on the FrameNet 1.7 datasets) in https://github.com/AlenUbuntu/semafor_Framenet_v1.7 were missing. I had sent multiple follow-up emails to the author and the person-of-contact listed in the repository, but I had not received any reply to date.
+Second, SEMAFOR could not be implemented because `pyfn` was not functional, and the pre-trained models (MaltParser trained on Penn Treebank and SEMAFOR trained on the FrameNet 1.7 datasets) in [repository](https://github.com/AlenUbuntu/semafor_Framenet_v1.7) were missing. I had sent multiple follow-up emails to the author and the person-of-contact listed in the repository, but I had not received any reply to date.
 
 **Documentation of PyDaisy and Open-Sesame parsers** - https://github.com/yongzx/GSoC-2019-FrameNet/blob/master/Documentation%20-%20PyDaisy%20and%20OpenSesame.md
 
